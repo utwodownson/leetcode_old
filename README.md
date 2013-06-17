@@ -1,7 +1,4 @@
-leetcode
-========
-
-* Palindrome Partitioning IIMar 15805 / 20673
+1. Palindrome Partitioning IIMar 15805 / 20673
 * Palindrome PartitioningFeb 283075 / 10820
 * Surrounded RegionsFeb 224549 / 17226
 * Sum Root to Leaf NumbersFeb 193700 / 10367
@@ -131,5 +128,6 @@ leetcode
 * Longest Palindromic SubstringNov 11 '113447 / 11528
 * Add Two NumbersNov 1 '114323 / 13900
 * Longest Substring Without Repeating CharactersMay 16 '114830 / 14554
-* Median of Two Sorted ArraysMar 28 '113283 / 17131
-1. Two SumMar 14 '116971 / 22207
+* Median of Two Sorted
+* Two Sum 
+132 - X + 1;
