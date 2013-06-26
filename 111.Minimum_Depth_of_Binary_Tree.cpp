@@ -18,6 +18,12 @@ class Solution {
         int minDepth(TreeNode *root) {
             // Start typing your C/C++ solution below
             // DO NOT write int main() function
-
+            if (root) {
+                int ld = minDepth(root->left);
+                int rd = minDepth(root->right);
+                return (ld > 0 && rd > 0 ? min(ld, rd) : max(ld, rd)) + 1;
+            } else {
+                return 0;
+            }
         }
 };

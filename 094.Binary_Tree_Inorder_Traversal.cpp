@@ -12,8 +12,6 @@
  * return [1,3,2].
  *
  * Note: Recursive solution is trivial, could you do it iteratively?
- *
- * confused what "{1,#,2,3}" means? > read more on how binary tree is serialized on OJ.
  */
 
 /**
@@ -30,6 +28,19 @@ class Solution {
         vector<int> inorderTraversal(TreeNode *root) {
             // Start typing your C/C++ solution below
             // DO NOT write int main() function
-
+            vector<int> ans;
+            vector<TreeNode *> st;
+            for ( ; ; ) {
+                while (root) {
+                    st.push_back(root);
+                    root = root->left;
+                }
+                if (st.size() == 0) break;
+                root = st.back();
+                ans.push_back(root->val);
+                st.pop_back();
+                root = root->right;
+            }
+            return ans;
         }
 };

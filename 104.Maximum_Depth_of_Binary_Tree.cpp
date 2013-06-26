@@ -18,6 +18,10 @@ class Solution {
         int maxDepth(TreeNode *root) {
             // Start typing your C/C++ solution below
             // DO NOT write int main() function
-
+            if (root) {
+                return max(maxDepth(root->left), maxDepth(root->right)) + 1;
+            } else {
+                return 0;
+            }
         }
 };
