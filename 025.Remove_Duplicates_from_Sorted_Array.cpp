@@ -27,3 +27,15 @@ class Solution {
             return i;
         }
 };
+
+/*
+ * second time
+
+int i = 0, j = 1;
+if (n < 2) return n;
+while (j < n) {
+    if (A[j] != A[i])
+        A[++i] = A[j];
+    ++j;
+}
+return (i + 1);
