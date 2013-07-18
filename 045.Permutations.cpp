@@ -7,10 +7,32 @@
  */
 
 class Solution {
-    public:
-        vector<vector<int> > permute(vector<int> &num) {
-            // Start typing your C/C++ solution below
-            // DO NOT write int main() function
-            
+    vector<vector<int> > ret;
+    void perm(vector<int>& p, vector<int>& options, vector<bool>& used) {
+        if (p.size() == options.size()) {
+            ret.push_back(p);
+            return;
         }
+
+        for (size_t i = 0; i < options.size(); i++) {
+            if (!used[i]) {
+                used[i] = true;
+                p.push_back(options[i]);
+                perm(p, options, used);
+                p.pop_back();
+                used[i] = false;
+            }
+        }
+    }
+
+    public:
+    vector<vector<int> > permute(vector<int> &num) {
+        // Start typing your C/C++ solution below
+        // DO NOT write int main() function
+        ret.clear();
+        vector<int> p;
+        vector<bool> used(num.size(), false);
+        perm(p, num, used);
+        return ret;
+    }
 };
