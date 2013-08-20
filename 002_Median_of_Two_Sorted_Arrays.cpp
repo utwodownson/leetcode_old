@@ -7,7 +7,6 @@ class Solution {
         while (k > 1 && m > 0 && n > 0) {
             int ka = k * m / (m + n);
             int kb = k * n / (m + n);
-
             if (ka + kb < k) {
                 if (ka < kb) ka++;
                 else kb++;
