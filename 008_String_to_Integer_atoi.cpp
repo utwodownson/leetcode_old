@@ -26,11 +26,35 @@ class Solution {
         int atoi(const char *str) {
             // Start typing your C/C++ solution below
             // DO NOT write int main() function
+            int max_pos = INT_MAX;
+            int min_neg = INT_MIN;
+            bool sign = true;
             if (str == NULL) return 0;
-            int i = 0, len = strlen(str), int ans = 0, sign = 0;
-            while (i < len) {
-                while (str[i] == ' ') i++;
-                if (str[i] == '+')  
+            while (isspace(*str)) str++; // 
+            if (*str == '+') str++;
+            else if (*str == '-') {
+                str++;
+                sign = false;
             }
+
+            int d = 0;
+            while (*str >= '0' && *str <= '9') {
+                int dig = *str - '0';
+                if (sign) {
+                    if (d > (max_pos - dig) / 10) {
+                        d = max_pos;
+                        break; 
+                    }
+                    d = d * 10 + dig;
+                } else {
+                    if (d < (min_neg + dig) / 10) {
+                        d = min_neg;
+                        break;
+                    }
+                    d = d * 10 - dig;
+                }
+                str++;
+            }
+            return d;
         }
 };
