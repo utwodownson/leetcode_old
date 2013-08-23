@@ -12,22 +12,19 @@ class Solution {
         int maxArea(vector<int> &height) {
             // Start typing your C/C++ solution below
             // DO NOT write int main() function
-            int res = 0;
-            int len = height.size();
-            int mid = 0, max = 0;
-            for (int i = 0; i < len; ++i) {
-                if (max < a[i]) {
-                    max = a[i];
-                    mid = i;
+            int maxarea = 0, i = 0, j = height.size() - 1, area = 0;
+            while (i < j) {
+                while (i < j && height[i] <= height[j]) {
+                    area = (j - i) * height[i];
+                    if (maxarea < area) maxarea = area;
+                    i++;
+                }
+                while (i < j && height[i] > height[j]) {
+                    area = (j - i) * height[j];
+                    if (maxarea < area) maxarea = area;
+                    j--;
                 }
             }
-            int left = 0, right = len - 1;
-            while (left < mid) 
-                if (a[left] > a[left + 1])
-                    res += a[left++] - a[left + 1];
-            while (right > mid)
-                if (a[right] > a[right - 1]) 
-                    res += a[right] - a[right + 1]; 
-            return res;
-        }
+            return maxarea;
+        } 
 };
