@@ -11,6 +11,25 @@ class Solution {
         int threeSumClosest(vector<int> &num, int target) {
             // Start typing your C/C++ solution below
             // DO NOT write int main() function
-            
+            sort(num.begin(), num.end());
+            int sum;
+            int ans = 0, flag = 1;
+            for (int i = 0; i < num.size(); ++i) {
+                for (int j = i + 1, k = num.size() - 1; j < k; ) {
+                    sum = num[i] + num[j] + num[k];
+                    if (flag || abs(ans - target) > abs(sum - target)) {
+                        ans = sum;
+                        flag = 0;
+                    }
+                    if (sum > target)
+                        --k;
+                    else if (sum < target)
+                        j++;
+                    else
+                        return sum;
+                }
+            }
+            return ans;
         }
 };
+
