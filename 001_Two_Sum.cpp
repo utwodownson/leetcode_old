@@ -12,24 +12,23 @@
 typedef struct _Node {
     int val;
     int index;
-    _Node(){} //
-    _Node(int v, int idx) : val(v), index(idx){} //
+    _Node(){}
+    _Node(int v, int idx) : val(v), index(idx){}
 }Node;
 
-bool cmp(const Node &left, const Node &right) { //
+bool cmp(const Node &left, const Node &right) {
     return left.val < right.val;
 }
 
 class Solution {
     public:
         vector<int> twoSum(vector<int> &numbers, int target) {
-            // Start typing your C/C++ solution below
-            // DO NOT write int main() function
+            // Note: The Solution object is instantiated only once and is reused by each test case.
             vector<Node> list;
-            for (int i = 0 ; i < numbers.size(); ++i)  // size() list
-                list.push_back(Node(numbers[i], i + 1)); // push_back
+            for (int i = 0 ; i < numbers.size(); ++i)
+                list.push_back(Node(numbers[i], i + 1));
 
-            sort(list.begin(), list.end(), cmp); // sort
+            sort(list.begin(), list.end(), cmp);
 
             vector<int> ret;
             int i = 0, j = numbers.size() - 1;
@@ -38,8 +37,8 @@ class Solution {
                 if (sum < target) ++i;
                 else if (target < sum) --j;
                 else {
-                    int mini = min(list[i].index, list[j].index); // min
-                    int maxj = max(list[i].index, list[j].index); // max
+                    int mini = min(list[i].index, list[j].index);
+                    int maxj = max(list[i].index, list[j].index);
                     ret.push_back(mini);
                     ret.push_back(maxj);
                     return ret;
