@@ -32,8 +32,7 @@ class Solution {
     }
     public:
         double findMedianSortedArrays(int A[], int m, int B[], int n) {
-            // Start typing your C/C++ solution below
-            // DO NOT write int main() function
+            // Note: The Solution object is instantiated only once and is reused by each test case.
             int ka = (m + n + 1) / 2, kb = (m + n) / 2 + 1;
             return (findK(A, m, B, n, ka) + findK(A, m, B, n, kb)) / 2.0; 
         }

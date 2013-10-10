@@ -1,5 +1,4 @@
-/*
- * Determine whether an integer is a palindrome. Do this without extra space.
+/* Determine whether an integer is a palindrome. Do this without extra space.
 
  * Some hints:
  * Could negative integers be palindromes? (ie, -1)
@@ -13,26 +12,10 @@
  * 
  * There is a more generic way of solving this problem.
  */
- /* bad alg
 class Solution {
     public:
         bool isPalindrome(int x) {
-            // Start typing your C/C++ solution below
-            // DO NOT write int main() function
-            int y = 0, tmp = abs(x);
-            int sign = x > 0 ? 1 : -1;
-            while (tmp) {
-                y = y * 10 + tmp % 10;
-                tmp /= 10;
-            }
-            if (x == y) return true;
-            else return false;
-        }
-};
-  */
-class Solution {
-    public:
-        bool isPalindrome(int x) {
+            // Note: The Solution object is instantiated only once and is reused by each test case.
             if (x < 0) return false;
             int n = 1;
             while (n <= x / 10) n = n * 10;

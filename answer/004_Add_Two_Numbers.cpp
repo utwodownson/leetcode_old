@@ -17,11 +17,10 @@
 class Solution {
     public:
         ListNode *addTwoNumbers(ListNode *l1, ListNode *l2) {
-            // Start typing your C/C++ solution below
-            // DO NOT write int main() function
+            // Note: The Solution object is instantiated only once and is reused by each test case.
             int c = 0;
-            ListNode *p = 0, *sum = 0; // sum is the head
-            while (l1 || l2 || c > 0) { // l1 || l2 || c > 0
+            ListNode *p = 0, *sum = 0;
+            while (l1 || l2 || c > 0) {
                 int tmp = c;
                 if (l1) {
                     tmp += l1->val;
@@ -38,7 +37,7 @@ class Solution {
                 } else {
                     sum = p = q;
                 }
-                c = tmp / 10; 
+                c = tmp / 10;
             }
             return sum;
         }

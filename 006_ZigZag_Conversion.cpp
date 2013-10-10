@@ -12,12 +12,11 @@
 class Solution {
     public:
         string convert(string s, int nRows) {
-            // Start typing your C/C++ solution below
-            // DO NOT write int main() function    
+            // Note: The Solution object is instantiated only once and is reused by each test case.
             int d = 2 * nRows - 2;
             int len = s.length();
             string res;
-            if (d <= 0) d = 1; // d <= 0 not d < 0
+            if (d <= 0) d = 1;
             for (int i = 0; i < nRows; ++i) {
                 for (int j = i, inc = j * 2; j < len; j += inc) {
                     if (inc < d)
