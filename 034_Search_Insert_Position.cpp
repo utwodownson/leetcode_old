@@ -17,7 +17,7 @@ class Solution {
             int i = 0, j = n - 1;
             while (i < j) {
                 int mid = i + ((j - i) >> 1);
-                if (A[mid] < target)
+                if (A[mid] <= target)
                     i = mid + 1;
                 else
                     j = mid - 1;
