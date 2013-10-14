@@ -8,8 +8,31 @@
  */
 class Solution {
     public:
+        void addNum(string &s, int n) {
+            string v;
+            while (n) {
+                v.push_back(n % 10 + '0');
+                n /= 10;
+            }
+            for (int i = v.length() - 1; i >= 0; --i)
+                s.push_back(v[i]);
+        }
         string countAndSay(int n) {
             // Note: The Solution object is instantiated only once and is reused by each test case.
-                         
+            string s = "1";
+            while (--n) {
+                string t = s;
+                s = "";
+                for (int i = 0; i < t.length(); ++i) {
+                    int cnt = 1;
+                    while (t[i] == t[i + 1]) {
+                        i++;
+                        cnt++;
+                    }
+                    addNum(s, cnt);
+                    s.push_back(t[i]);
+                }
+            }
+            return s;
         }
 };
