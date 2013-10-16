@@ -10,7 +10,7 @@ class Solution {
             double x = 1;
             if (m < n) swap(m, n);
             for (int i = 1; i < n; i++) 
-                x = x * (m+i-1) / i;
+                x = x * (m + i - 1) / i;
             return (x - (int)x >= 0.5 ? (int)x + 1: (int)x);
         }
 };
