@@ -18,5 +18,27 @@ class Solution {
     public:
         ListNode *reverseBetween(ListNode *head, int m, int n) {
             // Note: The Solution object is instantiated only once and is reused by each test case.
+            ListNode *pre = 0, *first = head, *tmp = 0, *last;
+            for (int i = 1; i < m; ++i) {
+                pre = first;
+                first = first->next;
+            }
+            while (m <= n) {
+                last = first->next;
+                first->next = tmp;
+                tmp = first;
+                first = last;
+                m++;
+            }
 
+            if (pre) {
+                pre->next->next = first;
+                pre->next = tmp;
+            } else {
+                head->next = first;
+                head = tmp;
+            }
+            return head;
+        }
 };
+
