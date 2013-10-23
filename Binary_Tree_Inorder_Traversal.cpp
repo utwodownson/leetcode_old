@@ -21,6 +21,20 @@ class Solution {
     public:
         vector<int> inorderTraversal(TreeNode *root) {
             // Note: The Solution object is instantiated only once and is reused by each test case.
-            
+            vector<int> ans;
+            vector<TreeNode*> st;
+            for ( ; ; ) {
+                while (root) {
+                    st.push_back(root);
+                    root = root->left;
+                }
+                if (st.size() == 0) 
+                    break;
+                root = st.back();
+                ans.push_back(root->val);
+                st.pop_back();
+                root = root->right;
+            }
+            return ans;
         }
 };
