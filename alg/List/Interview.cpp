@@ -1,7 +1,5 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <iostream>
-using namespace std;
 
 #define N 1010
 
@@ -12,7 +10,6 @@ typedef struct Node {
     int val;
     Node *next;
     Node *pre;
-    Node(int x, Node *left, Node *right) : val(x), pre(left), next(right) {}
 }ListNode;
 
 void print_list(ListNode *head) {
@@ -25,16 +22,28 @@ void print_list(ListNode *head) {
 }
 
 ListNode *haveseat() {
-    ListNode *head, *tail, *p;
-    ListNode *tmp = new ListNode(a[0], tmp, tmp);
-    head = tail = p = tmp;
+    ListNode *tmp = (ListNode *) malloc(sizeof(ListNode));
+    tmp->val = a[0];
+    tmp->next = tmp;
+    tmp->pre = tmp;
+    ListNode *p = tmp;
+    int len = 1;
+
     for (int i = 1; i < n; ++i) {
-        ListNode *tmp = new ListNode(a[i], p, head);
-        p->next = tmp;
-        tail = p = tmp;
-        head->pre = tail;
+        int k = (m - 1) % len;
+        while (k-- > 0) 
+            p = p->next;
+        ListNode *pre = p, *last = p->next;
+        ListNode *tmp = (ListNode *) malloc(sizeof(ListNode));
+        tmp->val = a[i];
+        tmp->next = last;
+        tmp->pre = pre;
+        last->pre = tmp;
+        pre->next = tmp;
+        p = tmp;
+        len++;
     }
-    return tail;
+    return p;
 }
 
 int main() 
