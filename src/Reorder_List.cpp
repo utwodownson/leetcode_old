@@ -15,15 +15,14 @@
 class Solution {
         ListNode *reverse(ListNode *head) {
             if (!head) return head;
-            ListNode *p = head, *q = head->next, *r = NULL;
-            p->next = NULL;
+            ListNode *p = head, *q = head, *tmp = NULL;
             while (q) {
-                r = q->next;
-                q->next = p;
+                q = p->next;
+                p->next = tmp;
+                tmp = p;
                 p = q;
-                q = r; 
             }
-            return p;
+            return tmp;
         }
     public:
         void reorderList(ListNode *head) {
