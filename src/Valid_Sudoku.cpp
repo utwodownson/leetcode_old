@@ -8,20 +8,24 @@
 
 class Solution {
     public:
-        bool getBit(int x, int b) const {
+        bool getBit(int x, int b) {
             return (x >> b) & 1;
         }
 
         bool isValidSudoku(vector<vector<char> > &board) {
+            // IMPORTANT: Please reset any member data you declared, as
+            // the same Solution instance will be reused for each test case.
             vector<int> rows(9,0);
             vector<int> cols(9,0);
             vector<int> blocks(9,0);
+
             for (int r = 0; r < 9; r++) {
                 for (int c = 0; c < 9; c++) {
                     if (board[r][c] == '.') continue;
 
                     int blk = (r / 3) * 3 + c / 3;                
                     int n = board[r][c] - '1';                
+
                     if (getBit(rows[r], n) || getBit(cols[c], n) || getBit(blocks[blk], n)) {
                         return false;
                     }
