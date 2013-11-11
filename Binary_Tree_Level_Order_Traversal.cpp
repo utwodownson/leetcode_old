@@ -28,23 +28,24 @@ class Solution {
             // Note: The Solution object is instantiated only once and is reused by each test case.
             vector<vector<int> > ans;
             vector<int> level;
-            queue<TreeNode *> Q;
-            if (root) {
-                Q.push(root);
-                Q.push(NULL);
+            queue<TreeNode *> q;
+            TreeNode *p = root; 
+            if (p) {
+                q.push(p);
+                q.push(NULL);
             }
 
-            while (!Q.empty()) {
-                TreeNode *t = Q.front();
-                Q.pop();
-                if (t) {
-                    level.push_back(t->val);
-                    if (t->left) Q.push(t->left);
-                    if (t->right) Q.push(t->right);
+            while (!q.empty()) {
+                p = q.front();
+                q.pop();
+                if (p) {
+                    level.push_back(p->val);
+                    if (p->left) q.push(p->left);
+                    if (p->right) q.push(p->right);
                 } else {
                     ans.push_back(level);
                     level.clear();
-                    if (!Q.empty()) Q.push(NULL);
+                    if (!q.empty()) q.push(NULL);
                 }
             }
             return ans;

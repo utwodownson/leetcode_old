@@ -13,9 +13,7 @@
  */
 class Solution {
         TreeNode *build(const int *inorder, const int *postorder, int size) {
-            if (size < 1) {
-                return 0;
-            }
+            if (size < 1) return 0;
             int val = postorder[size - 1];
             TreeNode *root = new TreeNode(val);
             for (int i = 0; i < size; i++) {

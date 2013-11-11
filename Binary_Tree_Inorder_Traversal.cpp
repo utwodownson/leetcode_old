@@ -22,18 +22,18 @@ class Solution {
         vector<int> inorderTraversal(TreeNode *root) {
             // Note: The Solution object is instantiated only once and is reused by each test case.
             vector<int> ans;
-            vector<TreeNode*> st;
-            for ( ; ; ) {
-                while (root) {
-                    st.push_back(root);
-                    root = root->left;
+            stack<TreeNode *> s;
+            TreeNode *p = root;
+            while (p || !s.empty()) {
+                if (p) {
+                    s.push(p);
+                    p = p->left;
+                } else {
+                    p = s.top();
+                    s.pop();
+                    ans.push_back(p->val);
+                    p = p->right;
                 }
-                if (st.size() == 0) 
-                    break;
-                root = st.back();
-                ans.push_back(root->val);
-                st.pop_back();
-                root = root->right;
             }
             return ans;
         }
