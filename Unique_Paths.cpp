@@ -7,10 +7,11 @@ class Solution {
     public:
         int uniquePaths(int m, int n) {
             // Note: The Solution object is instantiated only once and is reused by each test case.
-            double x = 1;
-            if (m < n) swap(m, n);
-            for (int i = 1; i < n; i++) 
-                x = x * (m + i - 1) / i;
-            return (x - (int)x >= 0.5 ? (int)x + 1: (int)x);
+            vector<int> a(n, 0);
+            a[0] = 1;
+            for (int i = 0; i < m; ++i) 
+                for (int j = 1; j < n; ++j) 
+                    a[j] = a[j - 1] + a[j];
+            return a[n - 1];
         }
 };
