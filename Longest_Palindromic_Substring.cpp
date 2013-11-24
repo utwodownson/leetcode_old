@@ -5,25 +5,26 @@
 class Solution {
     public:
         string longestPalindrome(string s) {
-            // Note: The Solution object is instantiated only once and is reused by each test case.
-            int max_half = 0;
-            string substr = "";
-            for (int i = 0; i < s.length() - max_half; ++i) {
+            // IMPORTANT: Please reset any member data you declared, as
+            // the same Solution instance will be reused for each test case.
+            string subs = "";
+            int len = s.length(), max_half = 0;
+
+            for (int i = 0; i < len - max_half; ++i) {
                 int j, k;
-                for (j = i + 1, k = i; j < s.length() && k >= 0 && s[j] == s[k]; ++j, --k);
-                
-                if (substr.length() < j - k - 1) {
+
+                for (k = i, j = i + 1; 0 <= k && j < len && s[k] == s[j]; --k, ++j);
+                if (subs.length() < j - k - 1) {
                     max_half = j - i - 1;
-                    substr = s.substr(k + 1, j - k - 1);
+                    subs = s.substr(k + 1, j - k - 1);
                 }
 
-                for (j = i + 1, k = i - 1; j < s.length() && k >= 0 && s[j] == s[k]; ++j, --k);
-
-                if (substr.length() < j - k - 1) {
+                for (k = i - 1, j = i + 1; 0 <= k && j < len && s[k] == s[j]; --k, ++j);
+                if (subs.length() < j - k - 1) {
                     max_half = j - i - 1;
-                    substr = s.substr(k + 1, j - k - 1);
+                    subs = s.substr(k + 1, j - k - 1);
                 }
             }
-            return substr;
+            return subs;
         }
 };

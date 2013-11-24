@@ -25,33 +25,16 @@ class Solution {
     public:
         int atoi(const char *str) {
             // Note: The Solution object is instantiated only once and is reused by each test case.
-            if (str == NULL) return 0;
-
-            bool sign = true;
-            while (isspace(*str++));
-
-            if (*str == '+') str++;
-            else if (*str++ == '-') sign = false;
-
-            int max_pos = INT_MAX, min_neg = INT_MIN;
-            int d = 0;
-            while (*str >= '0' && *str <= '9') {
-                int dig = *str - '0';
-                if (sign) {
-                    if (d > (max_pos - dig) / 10) {
-                        d = max_pos;
-                        break; 
-                    }
-                    d = d * 10 + dig;
-                } else {
-                    if (d < (min_neg + dig) / 10) {
-                        d = min_neg;
-                        break;
-                    }
-                    d = d * 10 - dig;
-                }
-                str++;
+            int num = 0, sign = 1;
+            while (*str == ' ') ++str;
+            if (*str == '+') ++str;
+            if (*str == '-') { ++str; sign = -1; }
+            while ('0' <= *str && *str <= '9') {
+                if (INT_MAX / 10 < num || 
+                    num == INT_MAX / 10 && INT_MAX % 10 < (*str - '0')) 
+                    return sign == -1 ? INT_MIN : INT_MAX;
+                num = num * 10 + *str++ - '0';
             }
-            return d;
+            return num * sign;
         }
 };

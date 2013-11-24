@@ -7,21 +7,20 @@ class Solution {
     public:
         int lengthOfLongestSubstring(string s) {
             // Note: The Solution object is instantiated only once and is reused by each test case.
-            int visit[256];
-            memset(visit, false, sizeof(visit));
+            vector<bool> hash(256, false);
+            int maxl = 0, i = 0, j = 0, len = s.length();
+            while (j < len) {
+                while (j < len && !hash[s[j]])
+                    hash[s[j++]] = true;
 
-            int max = 0, i = 0, j = 0;
-            while (j < s.length()) {
-                while (j < s.length() && !visit[s[j]])
-                    visit[s[j++]] = true;
+                if (maxl < j - i)
+                    maxl = j - i;
 
-                if (max < j - i)
-                    max = j - i;
+                while (s[i] != s[j])
+                    hash[s[i++]] = false;
 
-                do {
-                    visit[s[i]] = false;
-                } while (s[i++] != s[j]);
+                ++j; ++i;
             }
-            return max;
+            return maxl;
         }
 };
