@@ -30,8 +30,7 @@ class Solution {
             if (*str == '+') ++str;
             if (*str == '-') { ++str; sign = -1; }
             while ('0' <= *str && *str <= '9') {
-                if (INT_MAX / 10 < num || 
-                    num == INT_MAX / 10 && INT_MAX % 10 < (*str - '0')) 
+                if (INT_MAX / 10 < num || num == INT_MAX / 10 && INT_MAX % 10 < (*str - '0')) 
                     return sign == -1 ? INT_MIN : INT_MAX;
                 num = num * 10 + *str++ - '0';
             }

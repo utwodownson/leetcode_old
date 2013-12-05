@@ -8,19 +8,15 @@ class Solution {
         int lengthOfLongestSubstring(string s) {
             // Note: The Solution object is instantiated only once and is reused by each test case.
             vector<bool> hash(256, false);
-            int maxl = 0, i = 0, j = 0, len = s.length();
-            while (j < len) {
-                while (j < len && !hash[s[j]])
+            int n = s.length(), ans = 0;
+            for (int i = 0, j = 0; j < n; ++i, ++j) {
+                while (j < n && !hash[s[j]]) 
                     hash[s[j++]] = true;
-
-                if (maxl < j - i)
-                    maxl = j - i;
-
-                while (s[i] != s[j])
+                if (ans < j - i) 
+                    ans = j - i;
+                while (s[i] != s[j]) 
                     hash[s[i++]] = false;
-
-                ++j; ++i;
             }
-            return maxl;
+            return ans;
         }
 };
