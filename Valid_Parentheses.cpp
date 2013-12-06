@@ -8,24 +8,19 @@ class Solution {
         bool isValid(string s) {
             // Start typing your C/C++ solution below
             // DO NOT write int main() function
-            vector<char> tmp;
+            stack<char> buf;
             for (int i = 0; i < s.length(); ++i) {
-                if (s[i] == '(' || s[i] == '{' || s[i] == '[') {
-                    tmp.push_back(s[i]);
-                } else if (s[i] == ')') {
-                    if (tmp.empty() || tmp.back() != '(')
-                        return false;
-                    tmp.pop_back();
-                } else if (s[i] == ']') {
-                    if (tmp.empty() || tmp.back() != '[') 
-                        return false;
-                    tmp.pop_back();
-                } else if (s[i] == '}') {
-                    if (tmp.empty() || tmp.back() != '{') 
-                        return false;
-                    tmp.pop_back();
+                if (s[i] != ')' && s[i] != ']' && s[i] != '}')
+                    buf.push(s[i]);
+                else {
+                    if (buf.empty()) return false;
+                    if (s[i] == ')' && buf.top() != '(') return false;
+                    else if (s[i] == ']' && buf.top() != '[') return false;
+                    else if (s[i] == '}' && buf.top() != '{') return false;
+                    else buf.pop();
                 }
             }
-            return tmp.empty();
+            return buf.empty();
         }
 };
+
