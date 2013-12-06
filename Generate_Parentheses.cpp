@@ -3,25 +3,25 @@
  * "((()))", "(()())", "(())()", "()(())", "()()()"
  */
 class Solution {
-    void dfs(string s, int left, int right, vector<string> &vc){
-        if(left == 0 && right == 0){
+    void dfs(string s, int left, int right, vector<string> &vc, int n){
+        if (left == n && right == n){
             vc.push_back(s);
             return;
         }
 
-        if(left > 0)
-            dfs(s + '(', left - 1, right, vc);
+        if (left < n)
+            dfs(s + '(', left + 1, right, vc, n);
 
-        if(right - 1 >= left)
-            dfs(s + ')', left, right - 1, vc);
+        if (right < left)
+            dfs(s + ')', left, right + 1, vc, n);
     }
     public:
     vector<string> generateParenthesis(int n) {
         // Start typing your C/C++ solution below
         // DO NOT write int main() function
         vector<string> vc;
-        vc.clear();
-        dfs("", n, n, vc);
+        dfs("", 0, 0, vc, n);
         return vc;
     }
 };
+

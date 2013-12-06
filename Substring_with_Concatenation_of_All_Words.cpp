@@ -11,28 +11,24 @@ class Solution {
     public:
         vector<int> findSubstring(string S, vector<string> &L) {
             // Note: The Solution object is instantiated only once and is reused by each test case.
-            map<string, int> word;
-            map<string, int> curStr;
+            map<string, int> word, curStr;
             vector<int> ret;
-            int N = L.size();
-            if (N <= 0) 
-                return ret;
-            for (int i = 0; i < L.size(); ++i) 
-                ++word[L.at(i)];
+            int n = L.size(), m = L[0].size(), i, j;
 
-            int M = L.at(0).size();
-            int i, j;
-            for (i = 0; S.size() >= N * M && i <= S.size() - N * M; ++i) {
+            if (!n || n * m > S.size()) return ret;
+
+            for (i = 0; i < n; ++i) 
+                ++word[L[i]];
+
+            for (i = 0; i <= S.size() - n * m; ++i) {
                 curStr.clear();
-                for (j = 0; j < N; ++j) {
-                    string t = S.substr(i + j * M, M);
-                    if (word.find(t) == word.end()) 
-                        break;
+                for (j = 0; j < n; ++j) {
+                    string t = S.substr(i + j * m, m);
+                    if (word.find(t) == word.end()) break;
                     ++curStr[t];
-                    if (curStr[t] > word[t])
-                        break;
+                    if (curStr[t] > word[t]) break;
                 }
-                if (j == N)
+                if (j == n) 
                     ret.push_back(i);
             }
             return ret;
