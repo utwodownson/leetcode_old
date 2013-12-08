@@ -25,23 +25,20 @@
 class Solution {
     public:
         vector<vector<int> > levelOrder(TreeNode *root) {
-            // Note: The Solution object is instantiated only once and is reused by each test case.
+            queue<TreeNode *> q;
             vector<vector<int> > ans;
             vector<int> level;
-            queue<TreeNode *> q;
-            TreeNode *p = root; 
-            if (p) {
-                q.push(p);
+            if (root) {
+                q.push(root);
                 q.push(NULL);
             }
 
             while (!q.empty()) {
-                p = q.front();
-                q.pop();
-                if (p) {
-                    level.push_back(p->val);
-                    if (p->left) q.push(p->left);
-                    if (p->right) q.push(p->right);
+                root = q.front(); q.pop();
+                if (root) {
+                    level.push_back(root->val);
+                    if (root->left) q.push(root->left);
+                    if (root->right) q.push(root->right);
                 } else {
                     ans.push_back(level);
                     level.clear();
@@ -51,10 +48,3 @@ class Solution {
             return ans;
         }
 };
-
-
-
-
-
-
-

@@ -12,23 +12,20 @@
  * };
  */
 class Solution {
-        TreeNode *build(const int *preorder, const int *inorder, int size) {
-            if (size < 1) 
-                return 0;
-            int val = preorder[0];
-            TreeNode *root = new TreeNode(val);
-            for (int i = 0; i < size; i++) {
-                if (inorder[i] == val) {
-                    root->left = build(preorder + 1, inorder, i);
-                    root->right = build(preorder + 1 + i, inorder + i + 1, size - i - 1);
-                    break; 
-                }
-            }
-            return root;
-        }
+    TreeNode *build(const int *pre, const int *in, int n) {
+        if (n < 1) return 0;
+
+        int tmp = pre[0], i;
+        for (i = 0; in[i] != tmp; ++i);
+
+        TreeNode *root = new TreeNode(tmp);
+        root->left = build(pre + 1, in, i);
+        root->right = build(pre + i + 1, in + i + 1, n - i - 1);
+
+        return root;
+    }
     public:
-        TreeNode *buildTree(vector<int> &preorder, vector<int> &inorder) {
-            // Note: The Solution object is instantiated only once and is reused by each test case.
-            return build(preorder.data(), inorder.data(), preorder.size());
-        }
+    TreeNode *buildTree(vector<int> &preorder, vector<int> &inorder) {
+        return build(preorder.data(), inorder.data(), inorder.size());
+    }
 };

@@ -11,13 +11,8 @@ class Solution {
             // IMPORTANT: Please reset any member data you declared, as
             // the same Solution instance will be reused for each test case.
             int ans = 0, len = 0;
-            for (const char* p = s; *p != '\0'; ++p) {
-                if (*p != ' ') {
-                    ++len;
-                    ans = len;
-                } else
-                    len = 0;
-            }
+            for (const char *p = s; *p != '\0'; ++p) 
+                *p == ' ' ? len = 0 : ans = ++len;
             return ans;
         }
 };

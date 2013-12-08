@@ -23,32 +23,28 @@
  * };
  */
 class Solution {
-        void traverse(TreeNode *root, int level, vector<vector<int>> &result) {
-            if (!root) return;
-
-            if (level > result.size()) {
-                vector<int> temp;
-                result.push_back(temp);
-            }
-            result[level - 1].push_back(root->val);
-            traverse(root->left, level + 1, result);
-            traverse(root->right, level + 1, result);
-        }
     public:
         vector<vector<int> > levelOrderBottom(TreeNode *root) {
-            // Start typing your C/C++ solution below
-            // DO NOT write int main() function
-            vector<vector<int>> result;
-            traverse(root, 1, result);
-            reverse(result.begin(), result.end());
-            return result;
+            queue<TreeNode *> q;
+            vector<vector<int> > ans;
+            vector<int> level;
+            if (root) {
+                q.push(root);
+                q.push(NULL);
+            }
+            while (!q.empty()) {
+                root = q.front(); q.pop();
+                if (root) {
+                    level.push_back(root->val);
+                    if (root->left) q.push(root->left);
+                    if (root->right) q.push(root->right);
+                } else {
+                    ans.push_back(level);
+                    level.clear();
+                    if (!q.empty()) q.push(NULL);
+                }
+            }
+            reverse(ans.begin(), ans.end());
+            return ans;
         }
 };
-
-
-
-
-
-
-
-

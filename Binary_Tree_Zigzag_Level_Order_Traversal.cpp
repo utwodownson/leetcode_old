@@ -19,33 +19,33 @@ class Solution {
             // IMPORTANT: Please reset any member data you declared, as
             // the same Solution instance will be reused for each test case.
             vector<vector<int> > ans;
-            vector<int> tmp;
-            TreeNode *p = root;
+            vector<int> level;
             queue<TreeNode *> q;
-            int flag = 0; // right to left 
-            if (p) {
-                q.push(p);
+            int flag = 0; 
+
+            if (root) {
+                q.push(root);
                 q.push(NULL);
             }
+
             while (!q.empty()) {
-                p = q.front();
-                q.pop();
-                if (p) {
-                    tmp.push_back(p->val);
-                    if (p->left) q.push(p->left);
-                    if (p->right) q.push(p->right); 
+                root = q.front(); q.pop();
+                if (root) {
+                    level.push_back(root->val);
+                    if (root->left) q.push(root->left);
+                    if (root->right) q.push(root->right); 
                 } else {
                     if (flag) {
-                        reverse(tmp.begin(), tmp.end());
+                        reverse(level.begin(), level.end());
                         flag = 0;
-                    } else {
-                        flag = 1;
-                    }
-                    ans.push_back(tmp);
-                    tmp.clear();
+                    } else flag = 1;
+
+                    ans.push_back(level);
+                    level.clear();
                     if (!q.empty()) q.push(NULL);
                 }
             }
             return ans;
         }
 };
+

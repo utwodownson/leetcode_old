@@ -23,16 +23,14 @@ class Solution {
             // Note: The Solution object is instantiated only once and is reused by each test case.
             vector<int> ans;
             stack<TreeNode *> s;
-            TreeNode *p = root;
-            while (p || !s.empty()) {
-                if (p) {
-                    s.push(p);
-                    p = p->left;
+            while (root || !s.empty()) {
+                if (root) {
+                    s.push(root);
+                    root = root->left;
                 } else {
-                    p = s.top();
-                    s.pop();
-                    ans.push_back(p->val);
-                    p = p->right;
+                    root = s.top(); s.pop();
+                    ans.push_back(root->val);
+                    root = root->right;
                 }
             }
             return ans;

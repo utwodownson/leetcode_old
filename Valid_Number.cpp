@@ -13,11 +13,12 @@ class Solution {
             // Note: The Solution object is instantiated only once and is reused by each test case.
             bool num = false, point = false, exp = false;
 
-            while (*s && isspace(*s)) s++;
-            if (*s == '+' || *s == '-') s++;
+            while (*s == ' ') ++s;
 
-            while (*s && !isspace(*s)) {
-                if (isdigit(*s)) {
+            if (*s == '+' || *s == '-') ++s;
+
+            for ( ; *s && *s != ' '; ++s) {
+                if ('0' <= *s && *s <= '9') {
                     num = true;
                 } else if (*s == '.') {
                     if (point || exp) return false;
@@ -28,12 +29,10 @@ class Solution {
                     num = false;
                 } else if (*s == '+' || *s == '-') {
                     if (toupper(s[-1]) != 'E') return false;
-                } else {
+                } else 
                     return false;
-                }
-                s++;
             }
-            while (*s && isspace(*s)) s++;
+            while (*s == ' ') s++;
 
             return *s == 0 && num;
         }   
