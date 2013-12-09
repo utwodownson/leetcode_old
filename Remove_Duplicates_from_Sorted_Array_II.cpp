@@ -8,13 +8,11 @@ class Solution {
     public:
         int removeDuplicates(int A[], int n) {
             // Note: The Solution object is instantiated only once and is reused by each test case.
-            int i = 0, j = 0;
-            while (j < n) {
-                A[i++] = A[j++];
-                while (j < n - 1 && A[j] == A[j - 1] && A[j] == A[j + 1]) j++;
-                if (A[j] == A[j - 1] && j < n - 1) 
-                    A[i++] = A[j++];
+            int index = 0;
+            for (int i = 0; i < n; ++i) {
+                if (i > 0 && i < n - 1 && A[i - 1] == A[i] && A[i] == A[i + 1]) continue;
+                A[index++] = A[i];
             }
-            return i;
+            return index;
         }
 };

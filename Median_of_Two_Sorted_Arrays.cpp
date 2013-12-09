@@ -3,32 +3,15 @@
  * The overall run time complexity should be O(log (m+n)).
  */
 class Solution {
-    int findK(int A[], int m, int B[], int n, int k) {
-        while (k > 1 && m > 0 && n > 0) {
-            int ka = k * m / (m + n);
-            int kb = k * n / (m + n);
-            if (ka + kb < k) {
-                if (ka < kb) ka++;
-                else kb++;
-            }
+    static double findK(int A[], int m, int B[], int n, int k) {
+        if (n < m) return findK(B, n, A, m, k);
+        if (m == 0) return B[k - 1];
+        if (k == 1) return min(A[0], B[0]);
 
-            if (A[ka - 1] < B[kb - 1]) {
-                A += ka;
-                m -= ka;
-                k -= ka;
-                n = kb;
-            } else if (B[kb - 1] < A[ka - 1]) {
-                B += kb;
-                n -= kb;
-                k -= kb;
-                m = ka;
-            } else
-                return A[ka - 1];
-        }
-        if (m > 0 && n > 0) return min(A[0], B[0]);
-        else if (m > 0) return A[k - 1];
-        else if (n > 0) return B[k - 1];
-        else return 0;
+        int pa = min(k / 2, m), pb = k - pa;
+        if (A[pa - 1] < B[pb - 1]) return findK(A + pa, m - pa, B, n, k - pa);
+        else if (A[pa - 1] > B[pb - 1]) return findK(A, m, B + pb, n - pb, k - pb);
+        else return A[pa - 1];
     }
     public:
         double findMedianSortedArrays(int A[], int m, int B[], int n) {

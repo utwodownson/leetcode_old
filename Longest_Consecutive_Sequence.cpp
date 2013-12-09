@@ -8,31 +8,24 @@ class Solution {
     public:
         int longestConsecutive(vector<int> &num) {
             // Note: The Solution object is instantiated only once and is reused by each test case.
-            unordered_map<int, int> hashmap;
-            for (int i = 0; i < num.size(); ++i)
-                hashmap[num[i]] = i;
-            vector<int> visited(num.size(), 0);
-            int maxV = INT_MIN;
-            for (int i = 0; i < num.size(); ++i) {
-                if (visited[i] == 1) continue;
-                visited[i] = 1;
-                int len = 1;
-                int index = num[i] - 1;
-                while (hashmap.find(index) != hashmap.end()) {
-                    visited[hashmap[index]] = 1;
-                    index--;
-                    len++;
-                }
+            unordered_map<int, bool> used;
+            for (int i = 0; i < num.size(); ++i) used[num[i]] = false;
 
-                index = num[i] + 1;
-                while (hashmap.find(index) != hashmap.end()) {
-                    visited[hashmap[index]] = 1;
-                    index++;
-                    len++;
+            int ans = 0;
+            for (int i = 0; i < num.size(); ++i) {
+                if (used[num[i]]) continue;
+                int len = 1;
+                used[num[i]] = true;
+                for (int j = num[i] + 1; used.find(j) != used.end(); ++j) {
+                    used[j] = true;
+                    ++len;
                 }
-                if (len > maxV)
-                    maxV = len;
+                for (int j = num[i] - 1; used.find(j) != used.end(); --j) {
+                    used[j] = true;
+                    ++len;
+                }
+                ans = max(ans, len);
             }
-            return maxV;
+            return ans;
         }
 };
