@@ -21,12 +21,12 @@ class Solution {
     TreeNode *sortedListToBST(ListNode *&head, int size) {
         TreeNode *root = 0;
         if (size > 0) {
-            int mid = size/2;
+            int mid = size >> 1;
             TreeNode *left = sortedListToBST(head, mid);
             root = new TreeNode(head->val);
             root->left = left;
             head = head->next;
-            root->right = sortedListToBST(head, size-mid-1);
+            root->right = sortedListToBST(head, size - mid - 1);
         }
         return root;
     }

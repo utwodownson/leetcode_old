@@ -13,7 +13,7 @@ class Solution {
             stack<TreeNode *> s;
             vector<int> ans;
             TreeNode *p = root, *pre = NULL;  
-            while (!s.empty() || p){
+            while (p || !s.empty()) {
                 if (p) {
                     s.push(p);
                     p = p->left;
