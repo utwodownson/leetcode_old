@@ -6,14 +6,11 @@ class Solution {
 public:
     int removeElement(int A[], int n, int elem) {
         // Note: The Solution object is instantiated only once and is reused by each test case.
-        int i = 0;
-        while (i < n) {
-            while (i < n && A[n - 1] == elem) --n;
-                if (i < n && A[i] == elem)
-                    A[i++] = A[--n];
-                else
-                    i++;
+        int index = 0;
+        for (int i = 0; i < n; ++i) {
+            if (A[i] != elem) 
+                A[index++] = A[i];
         }
-        return n;
+        return index;
     }
 };
