@@ -18,10 +18,9 @@ class Solution {
     public:
         ListNode *addTwoNumbers(ListNode *l1, ListNode *l2) {
             // Note: The Solution object is instantiated only once and is reused by each test case.
-            int c = 0;
-            ListNode *p = 0, *sum = 0;
-            while (l1 || l2 || c > 0) {
-                int tmp = c;
+            ListNode *head = NULL, *p = NULL, *pre = NULL;
+            int tmp = 0;
+            while (l1 || l2 || tmp) {
                 if (l1) {
                     tmp += l1->val;
                     l1 = l1->next;
@@ -30,15 +29,14 @@ class Solution {
                     tmp += l2->val;
                     l2 = l2->next;
                 }
-                ListNode *q = new ListNode(tmp % 10);
-                if (p) {
-                    p->next = q;
-                    p = q;
-                } else {
-                    sum = p = q;
-                }
-                c = tmp / 10;
+                ListNode *p = new ListNode(tmp % 10);
+                tmp = tmp / 10;
+                if (pre) {
+                    pre->next = p;
+                    pre = p;
+                } else 
+                    head = pre = p;
             }
-            return sum;
+            return head;
         }
 };
