@@ -15,31 +15,24 @@ class Solution {
     public:
         ListNode *deleteDuplicates(ListNode *head) {
             // Note: The Solution object is instantiated only once and is reused by each test case.
-            ListNode *p = 0, *q = head;
-            head = 0;
-            bool flag = true; // the last duplicate q
-            while (q) {
-                ListNode *r = q->next;
-                if (r == 0 || q->val != r->val) {
-                    if (flag) {
-                        if (p == 0) {
-                            head = q;
-                        } else {
-                            p->next = q;
-                        }
-                        p = q;
-                    } else {
-                        delete q;
-                    }
-                    flag = true;
-                } else {
-                    delete q;
-                    flag = false;
+            if (!head || !head->next) return head;
+            ListNode *begin = new ListNode(0), *p = begin, *q = head;
+            int tmp = q->val - 1;
+            for ( ; q->next; q = q->next) {
+                if (q->val != tmp) {
+                    if (q->val != q->next->val) {
+                        tmp = q->val;
+                        p->next = q;
+                        p = p->next;
+                    } else 
+                        tmp = q->val;
                 }
-                q = r;
             }
-            if (p) 
-                p->next = NULL;
-            return head;
+            if (q->val != tmp) { 
+                p->next = q;
+                p = p->next;
+            }
+            p->next = 0;
+            return begin->next;
         }
 };

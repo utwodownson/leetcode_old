@@ -16,32 +16,19 @@ class Solution {
     public:
         ListNode *partition(ListNode *head, int x) {
             // Note: The Solution object is instantiated only once and is reused by each test case.
-            ListNode *less = 0, *greater = 0, *p, *q;
-            while (head) {
+            ListNode *left = new ListNode(0), *right = new ListNode(0);
+            ListNode *p = left, *q = right;
+            for ( ; head; head = head->next) {
                 if (head->val < x) {
-                    if (less == 0) {
-                        less = p = head;
-                    } else {
-                        p->next = head;
-                        p = p->next;
-                    }
+                    p->next = head;
+                    p = head;
                 } else {
-                    if (greater == 0) {
-                        greater = q = head;
-                    } else {
-                        q->next = head;
-                        q = q->next;
-                    }
+                    q->next = head;
+                    q = head;
                 }
-                head = head->next;
             }
-
-            if (greater) 
-                q->next = 0;
-            if (less) 
-                p->next = greater;
-            else
-                less = greater;
-            return less;
+            p->next = right->next;
+            q->next = 0;
+            return left->next;
         }
 };

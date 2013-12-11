@@ -15,19 +15,15 @@ class Solution {
     public:
         ListNode *deleteDuplicates(ListNode *head) {
             // Note: The Solution object is instantiated only once and is reused by each test case.
-            if (head == NULL) return NULL;
-            ListNode *p = head, *q = p->next, *r = 0;
-            while (q) {
-                if (p->val == q->val) {
-                    r = q;
-                    q = q->next;
+            if (!head) return head;
+            ListNode *p = head;
+            for (ListNode *q = head->next; q; q = q->next) {
+                if (p->val != q->val) {
                     p->next = q;
-                    delete r;
-                } else {
                     p = q;
-                    q = q->next;
                 }
             }
-            reutrn head;
+            p->next = 0;
+            return head;
         }
 };
