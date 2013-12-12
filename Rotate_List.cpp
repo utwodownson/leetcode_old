@@ -14,16 +14,14 @@
 class Solution {
     public:
         ListNode *rotateRight(ListNode *head, int k) {
+            ListNode *tmp = head, *p = NULL; 
             int len = 1;
-            ListNode *tail = NULL;
-            for (tail = head; tail && tail->next; tail = tail->next) len++;
-            if (tail) {
-                tail->next = head;
-                k = len - k % len;
-                while (k-- > 0) 
-                    tail = tail->next;
-                head = tail->next;
-                tail->next = 0;
+            for (p = head; p && p->next; p = p->next, ++len);
+            for (int i = 1; i < len - k % len; tmp = tmp->next, ++i);
+            if (p) {
+                p->next = head;
+                head = tmp->next;
+                tmp->next = 0;
             }
             return head;
         }

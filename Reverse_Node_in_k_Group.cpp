@@ -19,32 +19,23 @@ class Solution {
     public:
         ListNode *reverseKGroup(ListNode *head, int k) {
             // Note: The Solution object is instantiated only once and is reused by each test case.
-            ListNode *p = head, *pre = 0, *q = head;
-            int len = 0;
-            while (p) {
-                p = p->next;
-                len++;
-            }
-            for (int i = 0; i < len / k; ++i) {
-                p = 0;
-                for (int j = 0; j < k; ++j) {
-                    ListNode *r = q->next;
-                    q->next = p;
-                    p = q;
-                    q = r;
+            ListNode *begin = new ListNode(0), *first = begin, *p = begin, *q, *last;
+            begin->next = head;
+            for ( ; last; first->next = last) {
+                first = last = p;
+                p = first->next;
+                for (int i = 0; i < k; ++i) {
+                    if (!last) break;
+                    last = last->next;
                 }
-                if (pre) {
-                    pre->next->next = q;
-                    ListNode *r = pre->next;
-                    pre->next = p;
-                    pre = r;
-                } else {
-                    pre = head;
-                    head->next = q;
-                    head = p;
+                if (!last) return begin->next;
+                for (ListNode *tmp = last->next; tmp != last; tmp = p, p = q) {
+                    q = p->next;
+                    p->next = tmp;
                 }
+                p = first->next;
             }
-            return head;
+            return begin->next;
         }
 };
 
