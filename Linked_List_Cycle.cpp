@@ -15,14 +15,9 @@ class Solution {
         bool hasCycle(ListNode *head) {
             // IMPORTANT: Please reset any member data you declared, as
             // the same Solution instance will be reused for each test case.
-            if (!head) return false;
-            ListNode *p = head, *q = head;
-            while (q && q->next) {
-                p = p->next;
-                q = q->next->next;
-                if (p == q)
-                    return true;
-            }
+            if (!head || !head->next) return false;
+            for (ListNode *p = head->next, *q = head->next->next; q && q->next; p = p->next, q = q->next) 
+                if (p == q) return true;
             return false;
         }
 };

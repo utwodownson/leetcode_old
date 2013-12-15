@@ -15,19 +15,15 @@ class Solution {
         ListNode *detectCycle(ListNode *head) {
             // IMPORTANT: Please reset any member data you declared, as
             // the same Solution instance will be reused for each test case.
-            ListNode *p = head, *q = head;
-            while (q && q->next) {
-                p = p->next;
-                q = q->next->next;
-                if (p == q) break;
+            if (!head || !head->next) return NULL;
+            ListNode *access = 0;
+            for (ListNode *p = head->next, *q = head->next->next; q && q->next; p = p->next, q = q->next->next) {
+                if (p == q) {
+                    ListNode *tmp = 0, *begin = 0;
+                    for (tmp = p, begin = head; tmp != begin; tmp = tmp->next, begin = begin->next);
+                    return tmp;
+                } 
             }
-            if (!q || !q->next) return NULL;
-
-            p = head;
-            while (p != q) {
-                p = p->next;
-                q = q->next;
-            }
-            return p;
+            return NULL;
         }
 };

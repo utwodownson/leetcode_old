@@ -1,5 +1,6 @@
 /* Implement strStr().
- * Returns a pointer to the first occurrence of needle in haystack, or null if needle is not part of haystack.
+ * Returns a pointer to the first occurrence of needle in haystack, 
+ * or null if needle is not part of haystack.
  */
 class Solution {
     public:
@@ -7,12 +8,11 @@ class Solution {
             // IMPORTANT: Please reset any member data you declared, as
             // the same Solution instance will be reused for each test case.
             if (!haystack || !needle) return NULL;
-            int lenh = strlen(haystack);
-            int lenn = strlen(needle);
-            for (int i = 0; i <= lenh - lenn; ++i) {
+            int ln = strlen(haystack), rn = strlen(needle);
+            for (int i = 0; i <= ln - rn; ++i) {
                 int j = 0;
-                for ( ; j < lenn && haystack[i + j] == needle[j]; ++j);
-                if (lenn <= j) return haystack + i;            
+                for (j = 0; j < rn && haystack[i + j] == needle[j]; ++j);
+                if (j >= rn) return haystack + i;
             }
             return NULL;
         }

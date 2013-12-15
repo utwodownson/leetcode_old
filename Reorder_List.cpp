@@ -13,40 +13,23 @@
  * };
  */
 class Solution {
-        ListNode *reverse(ListNode *head) {
-            if (!head) return head;
-            ListNode *p = head, *q = head, *tmp = NULL;
-            while (q) {
-                q = p->next;
-                p->next = tmp;
-                tmp = p;
-                p = q;
-            }
-            return tmp;
-        }
     public:
         void reorderList(ListNode *head) {
             // IMPORTANT: Please reset any member data you declared, as
             // the same Solution instance will be reused for each test case.
             if (!head) return;
-            ListNode *p = head, *q = head;
-            while (q && q->next) {
-                p = p->next;
-                q = q->next->next;
-            }
-
+            ListNode *p = 0, *q = 0, tmp = 0;
+            for (p = head, q = head; q && q->next; p = p->next, q = q->next->next);
             q = p->next;
-            p->next = NULL;
-            p = q;
-
-            p = reverse(p);
-            q = head;
-            while (p) {
-                ListNode *r = p->next;
+            p->next = 0;
+            for (p = q; p; tmp = p, p = q) {
+                q = p->next;
+                p->next = tmp;
+            }
+            for (p = tmp, q = head; p; q = q->next->next, p = tmp) {
+                tmp = p->next;
                 p->next = q->next;
                 q->next = p;
-                q = q->next->next;
-                p = r;
             }
         }
 };
