@@ -7,6 +7,7 @@ class Solution {
             // Start typing your C/C++ solution below
             // DO NOT write int main() function
             map<string, vector<string> > hash;
+
             for (int i = 0; i < strs.size(); ++i){
                 string s(strs[i]);
                 sort(s.begin(), s.end());
@@ -14,8 +15,7 @@ class Solution {
             }
 
             vector<string> ret;
-            for (map<string, vector<string> > :: iterator it = hash.begin();
-                    it != hash.end(); ++it) {
+            for (map<string, vector<string> > :: iterator it = hash.begin(); it != hash.end(); ++it) {
                 if ((it->second).size() > 1){
                     vector<string> &vs = it->second;
                     for (int i = 0; i < vs.size(); ++i)

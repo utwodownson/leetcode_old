@@ -23,9 +23,8 @@ class Solution {
                     if (dir == "/..") {
                         if (!st.empty()) 
                             st.pop_back();
-                    } else {
+                    } else 
                         st.push_back(dir);
-                    }
                 }
             }
 
