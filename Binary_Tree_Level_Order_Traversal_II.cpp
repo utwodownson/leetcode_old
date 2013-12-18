@@ -28,10 +28,7 @@ class Solution {
             queue<TreeNode *> q;
             vector<vector<int> > ans;
             vector<int> level;
-            if (root) {
-                q.push(root);
-                q.push(NULL);
-            }
+            if (root) { q.push(root); q.push(NULL); }
             while (!q.empty()) {
                 root = q.front(); q.pop();
                 if (root) {

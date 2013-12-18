@@ -7,22 +7,19 @@ class Solution {
         int longestValidParentheses(string s) {
             // IMPORTANT: Please reset any member data you declared, as
             // the same Solution instance will be reused for each test case.
-            const char *str = s.c_str(), *p = str;
-            stack<const char*> st;
-            int nMax = 0;
-
-            for ( ; *p != '\0'; ++p) {
-                if (*p == '(')
-                    st.push(p);
+            stack<int> lefts;
+            int ans = 0, last = -1;
+            for (int i = 0; i < s.length(); ++i) {
+                if (s[i] == '(') lefts.push(i);
                 else {
-                    if (!st.empty() && *st.top() == '(') {
-                        st.pop();
-                        nMax = max(nMax, p - (st.empty() ? str - 1 : st.top()));
+                    if (!lefts.empty()) {
+                        lefts.pop();
+                        ans = max(ans, i - (lefts.empty() ? last : lefts.top()));
                     } else 
-                        st.push(p);
+                        last = i;
                 }
             }
-            return nMax;
+            return ans;
         }
 };
 

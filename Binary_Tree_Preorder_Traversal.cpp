@@ -2,9 +2,9 @@
  * For example:
  * Given binary tree {1,#,2,3},
  1
- \
- 2
- /
+  \
+   2
+  /
  3
  * return [1,2,3].
  * Note: Recursive solution is trivial, could you do it iteratively?
@@ -25,13 +25,14 @@ class Solution {
             // the same Solution instance will be reused for each test case.
             stack<TreeNode *> s;
             vector<int> ans;
-            while (root || !s.empty()) {
-                if (root) {
-                    ans.push_back(root->val);
-                    s.push(root->right);
-                    root = root->left;
+            for (TreeNode *p = root; p || !s.empty(); ) {
+                if (p) {
+                    s.push(p->right);
+                    ans.push_back(p->val);
+                    p = p->left;
                 } else {
-                    root = s.top(); s.pop();
+                    p = s.top(); 
+                    s.pop();
                 }
             }
             return ans;

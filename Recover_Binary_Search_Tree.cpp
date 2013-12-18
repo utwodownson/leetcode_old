@@ -14,8 +14,8 @@ class Solution {
     public:
         void recoverTree(TreeNode *root) {
             stack<TreeNode *> s;
-            TreeNode *pre = 0, *first = 0, *second = 0;
-            while (root || !s.empty()) {
+            TreeNode *first = 0, *second = 0;
+            for (TreeNode *pre = 0; root || !s.empty(); ) {
                 if (root) {
                     s.push(root);
                     root = root->left;

@@ -21,12 +21,9 @@ class Solution {
             vector<vector<int> > ans;
             vector<int> level;
             queue<TreeNode *> q;
-            int flag = 0; 
+            bool flag = false; 
 
-            if (root) {
-                q.push(root);
-                q.push(NULL);
-            }
+            if (root) { q.push(root); q.push(NULL); }
 
             while (!q.empty()) {
                 root = q.front(); q.pop();
@@ -35,11 +32,8 @@ class Solution {
                     if (root->left) q.push(root->left);
                     if (root->right) q.push(root->right); 
                 } else {
-                    if (flag) {
-                        reverse(level.begin(), level.end());
-                        flag = 0;
-                    } else flag = 1;
-
+                    if (flag) reverse(level.begin(), level.end());
+                    flag = !flag;
                     ans.push_back(level);
                     level.clear();
                     if (!q.empty()) q.push(NULL);

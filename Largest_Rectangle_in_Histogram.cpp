@@ -10,17 +10,16 @@ class Solution {
     public:
         int largestRectangleArea(vector<int> &height) {
             // Note: The Solution object is instantiated only once and is reused by each test case.
-            stack<int> S;
+            stack<int> s;
             height.push_back(0);
             int ans = 0;
-
             for (int i = 0; i < height.size(); ++i) {
-                if (S.empty() || height[i] > height[S.top()])
-                    S.push(i);
+                if (s.empty() || height[i] > height[s.top()])
+                    s.push(i);
                 else {
-                    int tmp = S.top();
-                    S.pop();
-                    ans = max(ans, height[tmp] * (S.empty() ? i : i - S.top() - 1));
+                    int tmp = s.top();
+                    s.pop();
+                    ans = max(ans, height[tmp] * (s.empty() ? i : i - s.top() - 1));
                     --i;
                 }
             }
