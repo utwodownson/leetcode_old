@@ -16,7 +16,7 @@ class Solution {
         if (n < 1) return 0;
 
         int tmp = pre[0], i;
-        for (i = 0; in[i] != tmp; ++i);
+        for (i = 0; in[i] != tmp && i < n; ++i);
 
         TreeNode *root = new TreeNode(tmp);
         root->left = build(pre + 1, in, i);

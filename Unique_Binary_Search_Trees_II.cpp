@@ -19,21 +19,21 @@
  * };
  */
 class Solution {
-    vector<TreeNode *> *generate(int left, int right) {
-        vector<TreeNode *> *subTree = new vector<TreeNode*>();
-        if (left > right) {
-            subTree->push_back(NULL);
+    vector<TreeNode *> generate(int start, int end) {
+        vector<TreeNode *> subTree;
+        if (start > end) {
+            subTree.push_back(NULL);
             return subTree;
         }
-        for (int i = left; i <= right; ++i) {
-            vector<TreeNode*> *leftSubs = generate(left, i - 1);
-            vector<TreeNode*> *rightSubs = generate(i + 1, right);
-            for(int j = 0; j < leftSubs->size(); j++) {
-                for(int k = 0; k < rightSubs->size(); k++) {
-                    TreeNode *node = new TreeNode(i); 
-                    node->left = (*leftSubs)[j]; 
-                    node->right = (*rightSubs)[k];
-                    subTree->push_back(node); 
+        for (int k = start; k <= end; ++k) {
+            vector<TreeNode *> leftsubs = generate(start, k - 1);
+            vector<TreeNode *> rightsubs = generate(k + 1, end);
+            for (int i = 0; i < leftsubs.size(); ++i) {
+                for (int j = 0; j < rightsubs.size(); ++j) {
+                    TreeNode *root = new TreeNode(k);
+                    root->left = leftsubs[i];
+                    root->right = rightsubs[j];
+                    subTree.push_back(root);
                 }
             }
         }
@@ -42,8 +42,7 @@ class Solution {
     public:
     vector<TreeNode *> generateTrees(int n) {
         // Note: The Solution object is instantiated only once and is reused by each test case.
-        if (n == 0) return *generate(1, 0);
-        return *generate(1, n);
+        if (!n) return generate(1, 0);
+        return generate(1, n);
     }
 };
-
