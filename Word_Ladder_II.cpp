@@ -17,57 +17,64 @@
  * All words have the same length.
  * All words contain only lowercase alphabetic characters.
  */
-class Solution {
-        void buildPath(unordered_map<string, vector<string> > &father,
-                vector<string> &path, const string &start, const string &word,
-                vector<vector<string> > &result) {
-            path.push_back(word);
-            if (word == start) {
-                result.push_back(path);
-                reverse(result.back().begin(), result.back().end());
-            } else {
-                for (auto f : father[word]) 
-                    buildPath(father, path, start, f, result);
+string start, end;
+unordered_map<string, int> lev;
+void dfs(string now, vector<string> & stk, vector<vector<string> > & ret){
+    if(now == start){
+        vector<string> tmp(stk);
+        tmp.push_back(now);
+        reverse(tmp.begin(), tmp.end());
+        ret.push_back(tmp);
+        return ;
+    }
+    stk.push_back(now);
+    for(int i = 0; i < now.size(); ++ i)
+        for(char c = 'a'; c <= 'z'; ++ c){
+            string next(now);
+            next[i] = c;
+            if(next == now)
+                continue;
+            if(lev.find(next) != lev.end() && lev[next] == lev[now] - 1){
+                dfs(next, stk, ret);
             }
-            path.pop_back();
         }
-    
+    stk.pop_back();
+}
+class Solution {
     public:
-        vector<vector<string> > findLadders(string start, string end,
-                const unordered_set<string> &dict) {
-            unordered_set<string> visited; 
-            unordered_map<string, vector<string> > father; 
-            unordered_set<string> current, next; 
-            bool found = false;
-            current.insert(start);
-            while (!current.empty() && !found) {
-                for (auto word : current)
-                    visited.insert(word);
-                for (auto word : current) {
-                    for (size_t i = 0; i < word.size(); ++i) {
-                        string new_word = word;
-                        for (char c = 'a'; c <= 'z'; ++c) {
-                            if (c == new_word[i]) continue;
-                            swap(c, new_word[i]);
-                            if (new_word == end) found = true;
-                            if (visited.count(new_word) == 0
-                                    && (dict.count(new_word) > 0 ||
-                                        new_word == end)) {
-                                next.insert(new_word);
-                                father[new_word].push_back(word);
+        vector<vector<string>> findLadders(string start, string end, unordered_set<string> &dict) {
+            // Start typing your C/C++ solution below
+            // DO NOT write int main() function
+            vector<vector<string> > ret;
+            if(start == end){
+                ret.resize(1);
+                ret[0].push_back(start);
+                return ret;
+            }
+            ::start = start;
+            ::end = end;
+            lev.clear();
+            queue<string> q;
+            lev[start] = 0;
+            q.push(start);
+            while(!q.empty()){
+                string now = q.front();
+                q.pop();
+                if(now == end)
+                    continue;
+                for(int i = 0; i < now.size(); ++ i)
+                    for(char c = 'a'; c <= 'z'; ++ c){
+                        string next(now);
+                        next[i] = c;
+                        if(next == end || dict.find(next) != dict.end())
+                            if(lev.find(next) == lev.end()){
+                                lev[next] = lev[now] + 1;
+                                q.push(next);
                             }
-                            swap(c, new_word[i]); 
-                        }
                     }
-                }
-                current.clear();
-                swap(current, next);
             }
-            vector<vector<string> > result;
-            if (found) {
-                vector<string> path;
-                buildPath(father, path, start, end, result);
-            }
-            return result;
+            vector<string> stk;
+            dfs(end, stk, ret);
+            return ret;
         }
 };

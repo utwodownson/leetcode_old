@@ -12,52 +12,47 @@
  * X O X X
  */
 class Solution {
+        void visit(vector<vector<char> > &board, int i, int j, queue<int> &q) {
+            const int m = board.size();
+            const int n = board[0].size();
+            if (i < 0 || i >= m || j < 0 || j >= n || board[i][j] != 'o') return;
+            board[i][j] = '+';
+            q.push(i * n + j);
+        }
+        void bfs(vector<vector<char> > &board, int i, int j) {
+            queue<int> q;
+            visit(board, i, j, q);
+            while (!q.empty()) {
+                int cur = q.front(); q.pop();
+                int x = cur / board[0].size();
+                int y = cur % board[0].size();
+                visit(board, x - 1, y, q);
+                visit(board, x, y - 1, q);
+                visit(board, x + 1, y, q);
+                visit(board, x, y + 1, q);
+            }
+        }
     public:
         void solve(vector<vector<char>> &board) {
             // Note: The Solution object is instantiated only once and is reused by each test case.
-            vector<int> xIndex, yIndex;
-            int row = board.size();  
-            if (row == 0) return;  
-            int col = board[0].size();  
-            xIndex.clear();  
-            yIndex.clear();            
-            for (int i = 0; i < row; ++i) {  
-                if (board[i][0] == 'O') {  
-                    xIndex.push_back(i);  
-                    yIndex.push_back(0);  
-                }  
-                if (board[i][col - 1] == 'O') {  
-                    xIndex.push_back(i);  
-                    yIndex.push_back(col - 1);  
-                }  
-            }  
-            for (int i = 0; i < col; i++) {  
-                if (board[0][i] == 'O') {  
-                    xIndex.push_back(0);  
-                    yIndex.push_back(i);  
-                }  
-                if (board[row-1][i] == 'O') {  
-                    xIndex.push_back(row - 1);  
-                    yIndex.push_back(i);  
-                }  
-            }            
-
-            int k = 0;  
-            while (k < xIndex.size()) {  
-                int x = xIndex[k];  
-                int y = yIndex[k];     
-                board[x][y] = 'Y';  
-                if (x > 0 && board[x - 1][y] == 'O' ) {xIndex.push_back(x - 1); yIndex.push_back(y);}  
-                if (x < row - 1 && board[x + 1][y] == 'O' ) {xIndex.push_back(x + 1); yIndex.push_back(y);}                 
-                if (y  >0 && board[x][y - 1] == 'O' ) {xIndex.push_back(x); yIndex.push_back(y - 1);}  
-                if (y < col - 1 && board[x][y + 1] == 'O' ) {xIndex.push_back(x); yIndex.push_back(y + 1);}  
-                k++;  
-            }  
-            for (int i = 0; i < row; i++) {  
-                for (int j = 0; j < col; j++)  {  
-                    if (board[i][j] =='O') board[i][j] = 'X';  
-                    if (board[i][j] == 'Y') board[i][j] = 'O';  
-                }  
-            }            
+            if (board.size() == 0) return;
+            const int m = board.size();
+            const int n = board[0].size();
+            for (int i = 0; i < n; ++i) {
+                bfs(board, 0, i);
+                bfs(board, m - i, 1);
+            }
+            for (int j = 1; j < m - 1; ++j) {
+                bfs(board, j, 0);
+                bfs(board, j, n - 1);
+            }
+            for (int i = 0; i < n; ++i) {
+                for (int j = 0; j < m; ++j) {
+                    if (board[i][j] == 'o')
+                        board[i][j] = 'x';
+                    else if (board[i][j] == '+') 
+                        board[i][j] = 'o';
+                }
+            }
         }
 };
