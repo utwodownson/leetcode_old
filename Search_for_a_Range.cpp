@@ -6,27 +6,24 @@
  * return [3, 4].
  */
 class Solution {
+        int binary_search(int *A, int n, int target) {
+            int low = 0, high = n, mid = 0;
+            while (low < high) 
+                (target < A[mid = (low + high) >> 1]) ? high = mid : low = mid + 1;
+            return low - 1;
+        }
     public:
         vector<int> searchRange(int A[], int n, int target) {
             // Note: The Solution object is instantiated only once and is reused by each test case.
-            vector<int> ans(2, 0);
-            int i = 0, j = n - 1;
-            while (i <= j) {
-                int mid = i + ((j - i) >> 1);
-                if (A[mid] < target) 
-                    i = mid + 1;
-                else 
-                    j = mid - 1;
-            }
-            if (A[i] != target) {
-                ans[0] = -1;
-                ans[1] = -1;
-            } else {
-                ans[0] = i;
-                j = i;
-                while (j < n && A[j] == target) ++j;
-                ans[1] = j - 1;
-            }
+            vector<int> ans(2, -1);
+
+            int left = binary_search(A, n, target - 1) + 1;
+            if (A[left] != target) return ans;
+
+            int right = binary_search(A, n, target);
+            ans[0] = left;
+            ans[1] = right;
+
             return ans;
         }
 };
