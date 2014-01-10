@@ -14,7 +14,7 @@
  * word = "ABCB", -> returns false.
  */
 class Solution {
-    bool dfs(const vector<vector<char> > &board, const string &word, int index, int x, int y
+    bool dfs(const vector<vector<char> > &board, const string &word, int index, int x, int y, 
             vector<vector<bool> > &visited) {
         if (index == word.size())
             return true;
