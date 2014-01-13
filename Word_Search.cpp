@@ -13,20 +13,23 @@
  * word = "SEE", -> returns true,
  * word = "ABCB", -> returns false.
  */
+int dirx[] = { -1, 1, 0, 0};
+int diry[] = { 0, 0, -1, 1};
 class Solution {
-    bool dfs(const vector<vector<char> > &board, const string &word, int index, int x, int y, 
+    bool dfs(const vector<vector<char> > &board, const string &word, int index, int x, int y,
             vector<vector<bool> > &visited) {
-        if (index == word.size())
+        if (index == word.size()) 
             return true;
-        if (x < 0 || y < 0 || x >= board.size() || y >= board[0].size())
-            return false;
+
+        if (x < 0 || y < 0 || x >= board.size() || y >= board[0].size()) return false;
         if (visited[x][y]) return false;
         if (board[x][y] != word[index]) return false;
+
+        bool ret = false;
+
         visited[x][y] = true;
-        bool ret = dfs(board, word, index + 1, x - 1, y, visited) || 
-            dfs(board, word, index + 1, x + 1, y, visited) ||
-            dfs(board, word, index + 1, x, y - 1, visited) || 
-            dfs(board, word, index + 1, x, y + 1, visited);
+        for (int i = 0; i < 4; ++i) 
+            ret = ret || dfs(board, word, index + 1, x + dirx[i], y + diry[i], visited);
         visited[x][y] = false;
         return ret;
     }

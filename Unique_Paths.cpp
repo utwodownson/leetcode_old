@@ -3,15 +3,25 @@
  * The robot is trying to reach the bottom-right corner of the grid (marked 'Finish' in the diagram below).
  * How many possible unique paths are there?
  */
+const int MAXN = 100 + 10;
+int dp[MAXN][MAXN];
+
 class Solution {
+    int dfs(int i, int j) {
+        if (dp[i][j] > 0) return dp[i][j];
+        else return dp[i][j] = dfs(i - 1, j) + dfs(i, j - 1);
+    }
     public:
-        int uniquePaths(int m, int n) {
-            // Note: The Solution object is instantiated only once and is reused by each test case.
-            vector<int> a(n, 0);
-            a[0] = 1;
-            for (int i = 0; i < m; ++i) 
-                for (int j = 1; j < n; ++j) 
-                    a[j] = a[j - 1] + a[j];
-            return a[n - 1];
-        }
+    int uniquePaths(int m, int n) {
+        // Note: The Solution object is instantiated only once and is reused by each test case.
+        int ans = 0;
+        memset(dp, 0xff, sizeof(dp));
+        for (int i = 1; i < MAXN; ++i) 
+            dp[1][i] = dp[i][1] = 1;
+
+        ans = dfs(m, n);
+
+        return ans;
+    }
 };
+
