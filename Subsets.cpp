@@ -22,13 +22,13 @@ class Solution {
             ans.push_back(tmp);
             return;
         }
-        subsets(S, tmp, step + 1, ans);
-
         tmp.push_back(S[step]);
         subsets(S, tmp, step + 1, ans);
         tmp.pop_back();
+
+        subsets(S, tmp, step + 1, ans);
     }
-    public:
+public:
     vector<vector<int> > subsets(vector<int> &S) {
         sort(S.begin(), S.end());
         vector<vector<int> > ans;

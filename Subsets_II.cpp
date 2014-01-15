@@ -14,23 +14,25 @@
  * ]
  */
 class Solution {
-    void generateSub(vector<int> &s, int step, vector<vector<int> > &ans, vector<int> &tmp) {
-        for (int i = step; i < s.size(); ++i) {
-            tmp.push_back(s[i]);
+    void generateSub(vector<int> &s, vector<int> &tmp, int step, vector<vector<int> > &ans) {
+        if (step >= s.size()) {
             ans.push_back(tmp);
-            if (i < s.size() - 1) 
-                generateSub(s, i + 1, ans, tmp);
-            tmp.pop_back();
-            while (i < s.size() - 1 && s[i] == s[i + 1]) i++;
+            return;
         }
+        tmp.push_back(s[step]);
+        generateSub(s, tmp, step + 1, ans);
+        tmp.pop_back();
+
+        while (step < s.size() - 1 && s[step] == s[step + 1]) step++;
+
+        generateSub(s, tmp, step + 1, ans);
     }
-    public:
+public:
     vector<vector<int> > subsetsWithDup(vector<int> &S) {
+        sort(S.begin(), S.end());
         vector<vector<int> > ans;
         vector<int> tmp;
-        if (!S.size()) return ans;
-        ans.push_back(tmp);
-        sort(S.begin(), S.end());
-        generateSub(S, 0, ans, tmp);
+        generateSub(S, tmp, 0, ans);
+        return ans;
     }
 };
