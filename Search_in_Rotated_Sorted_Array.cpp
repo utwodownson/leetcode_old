@@ -11,10 +11,10 @@ class Solution {
             while (low < high) {
                 int mid = (low + high) >> 1;
                 if (A[mid] == target) return mid;
-                if (A[low] > A[mid]) 
-                    (A[mid] < target && target <= A[high - 1]) ? low = mid + 1 : high = mid;
+                if (A[low] < A[mid]) 
+                    (target < A[mid] && A[low] <= target) ? high = mid : low = mid + 1;
                 else 
-                    (A[low] <= target && target < A[mid]) ? high = mid : low = mid + 1;
+                    (target > A[mid] && target <= A[high - 1]) ? low = mid + 1 : high = mid;
             }
             return -1;
         }

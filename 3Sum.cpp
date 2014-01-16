@@ -14,27 +14,27 @@ class Solution {
             // IMPORTANT: Please reset any member data you declared, as
             // the same Solution instance will be reused for each test case.
             sort(num.begin(), num.end());
-            vector<vector<int> > ret;
-            vector<int> ans(3);
+            vector<vector<int> > ans;
+            vector<int> tmp(3);
 
             for (int i = 0; i < num.size(); ++i) {
-                int target = -num[i];
-                if (i > 0 && num[i] == num[i - 1]) continue;
-                for (int j = i + 1, k = num.size() - 1; j < k;) {
-                    if (num[j] + num[k] == target) {
-                        ans[0] = num[i];
-                        ans[1] = num[j];
-                        ans[2] = num[k];
-                        ret.push_back(ans);
-                        for (++j; j < k && num[j] == num[j - 1]; ++j);
-                        for (--k; j < k && num[k] == num[k + 1]; --k);
-                    } else if (num[j] + num[k] < target) {
-                        j++;
-                    } else {
-                        k--;
-                    }
+                int sum = -num[i];
+                for (int j = i + 1;
+                int target = sum - num[i + 1]; 
+                if (i > 0 && num[i - 1] == num[i]) continue;
+                while (low <= high) {
+                    int sum = num[low] + num[high];
+                    if (sum == target) {
+                        tmp[0] = -target;
+                        tmp[1] = num[low];
+                        tmp[2] = num[high];
+                        ans.push_back(tmp);
+                        for (++low; low < high && num[low - 1] == num[low]; ++low);
+                        for (--high; low < high && num[high] == num[high + 1]; --high);
+                    } else if (sum < target) ++low;
+                    else --high;
                 }
             }
-            return ret;
+            return ans;
         }
 };

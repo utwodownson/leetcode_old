@@ -6,12 +6,10 @@
 class Solution {
     void dfs(vector<int> &num, int step, vector<bool> &visited,
             vector<int> &solution, vector<vector<int> > &ret) {
-
         if (step >= num.size()) {
             ret.push_back(solution);
             return;
         }
-
         for (int i = 0; i < num.size(); ++i) {
             if (!visited[i]) {
                 if (i > 0 && num[i] == num[i - 1] && !visited[i - 1]) continue;
@@ -30,13 +28,8 @@ class Solution {
         vector<vector<int> > ret;
         vector<int> solution;
         vector<bool> visited(num.size(), false);
-
-        if (num.size() == 0) return ret;
-
         sort(num.begin(), num.end());
-
         dfs(num, 0, visited, solution, ret);
-
         return ret;
     }
 };

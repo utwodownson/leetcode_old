@@ -21,18 +21,14 @@ class Solution {
         }
     }
     public:
-    vector<vector<int> > permute(vector<int> &num) {
-        // IMPORTANT: Please reset any member data you declared, as
-        // the same Solution instance will be reused for each test case.
-        vector<vector<int> > ret;
-        vector<int> solution;
-        vector<bool> visited(num.size(), false);
-
-        if (num.size() == 0) return ret;
-
-        Generate(num, 0, visited, solution, ret);
-
-        return ret;
-    }
+        vector<vector<int> > permute(vector<int> &num) {
+            // IMPORTANT: Please reset any member data you declared, as
+            // the same Solution instance will be reused for each test case.
+            vector<vector<int> > ret;
+            vector<int> solution;
+            vector<bool> visited(num.size(), false);
+            Generate(num, 0, visited, solution, ret);
+            return ret;
+        }
 };
 
