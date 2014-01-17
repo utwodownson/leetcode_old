@@ -16,24 +16,23 @@ class Solution {
             sort(num.begin(), num.end());
             vector<vector<int> > ans;
             vector<int> tmp(3);
+            if (num.size() < 3) return ans;
 
-            for (int i = 0; i < num.size(); ++i) {
-                int sum = -num[i];
-                for (int j = i + 1;
-                int target = sum - num[i + 1]; 
-                if (i > 0 && num[i - 1] == num[i]) continue;
-                while (low <= high) {
-                    int sum = num[low] + num[high];
-                    if (sum == target) {
-                        tmp[0] = -target;
-                        tmp[1] = num[low];
-                        tmp[2] = num[high];
+            for (int i = 0; i < num.size(); ) {
+                for (int j = i + 1; j < num.size(); ) {
+                    int target = 0 - (num[i] + num[j]);
+                    int low = j + 1, high = num.size(), mid;
+                    while (low < high) 
+                        (target < num[mid = (low + high) >> 1]) ? high = mid : low = mid + 1;
+                    if (low - 1 > j && target == num[low - 1]) {
+                        tmp[0] = num[i];
+                        tmp[1] = num[j];
+                        tmp[2] = num[low - 1];
                         ans.push_back(tmp);
-                        for (++low; low < high && num[low - 1] == num[low]; ++low);
-                        for (--high; low < high && num[high] == num[high + 1]; --high);
-                    } else if (sum < target) ++low;
-                    else --high;
+                    }
+                    while (++j < num.size() && num[j - 1] == num[j]);
                 }
+                while (++i < num.size() && num[i - 1] == num[i]);
             }
             return ans;
         }

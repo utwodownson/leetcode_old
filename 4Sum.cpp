@@ -20,25 +20,21 @@ class Solution {
 
             for (int i = 0; i < len; ) {
                 for (int j = i + 1; j < len; ) {
-                    int s1 = num[i] + num[j];
                     for (int k = j + 1, m = len - 1; k < m; ) {
-                        int s = s1 + num[k] + num[m];
-                        if (s == target) {
+                        int s =  num[i] + num[j] + num[k] + num[m];
+                        if (s < target) ++k;
+                        else if (s > target) --m;
+                        else {
                             int q[4] = { num[i], num[j], num[k], num[m] };
                             ret.push_back(vector<int>(q, q + 4));
-                            while (++k < m && num[k] == num[k - 1]);
-                            while (--m > k && num[m] == num[m + 1]);
-                        } else if (s < target) {
-                            while (++k < m && num[k] == num[k - 1]);              
-                        } else {
-                            while (--m > k && num[m] == num[m + 1]);
-                        }
+                            while (++k < m && num[k - 1] == num[k]);
+                            while (k < --m && num[m] == num[m + 1]);
+                        } 
                     }
-                    while (++j < len && num[j] == num[j - 1]);
+                    while (++j < len && num[j - 1] == num[j]);
                 }
-                while (++i < len && num[i] == num[i - 1]);
+                while (++i < len && num[i - 1] == num[i]);
             }
-
             return ret;
         }
 };

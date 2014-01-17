@@ -10,15 +10,13 @@ class Solution {
     public:
         void nextPermutation(vector<int> &num) {
             // Note: The Solution object is instantiated only once and is reused by each test case.
-            int n = num.size(), k;
-            for (k = n - 1; k > 0 && num[k - 1] >= num[k]; --k);
-            for (int i = k, j = n - 1; i < j; ++i, --j) swap(num[i], num[j]);
-            if (k < 0) return;
-            for (int i = k; i < n; ++i) {
-                if (num[k - 1] < num[i]) {
-                    swap(num[k - 1], num[i]);
-                    break;
+            int i = 0, j = 0, k = 0;
+            for (i = num.size() - 1; i > 0 && num[i - 1] >= num[i]; --i); 
+            for (j = i, k = num.size() - 1; j < k; ++j, --k) swap(num[j], num[k]);
+            for (j = i; j < num.size(); ++j)
+                if (num[j] > num[i - 1]) {
+                    swap(num[i - 1], num[j]);
+                    return;
                 }
-            }
         }
 };
