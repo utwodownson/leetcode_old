@@ -4,14 +4,15 @@ class Solution {
     public:
         vector<int> plusOne(vector<int> &digits) {
             // Note: The Solution object is instantiated only once and is reused by each test case.
-            int n = digits.size(), pre, i;
-            vector<int> ans = digits;
-            for (i = n - 1, pre = 1; i >= 0 && pre == 1; --i) {
-                int tmp = ans[i] + pre;
-                ans[i] = tmp % 10;
-                pre = tmp / 10;
+            vector<int> ans;
+            int c = 1;
+            for (int i = digits.size() - 1; i >= 0; --i) {
+                int tmp = digits[i] + c;
+                c = tmp / 10;
+                ans.push_back(tmp % 10);
             }
-            if (pre) ans.insert(ans.begin(), pre);
+            if (c) ans.push_back(c);
+            reverse(ans.begin(), ans.end());
             return ans;
         }
 };

@@ -7,7 +7,7 @@ class Solution {
             // IMPORTANT: Please reset any member data you declared, as
             // the same Solution instance will be reused for each test case.
             int pre = 0, cur = 1;
-            for (int i = 1; i <= n; ++i) {
+            for (int i = 0; i < n; ++i) {
                 int tmp = cur;
                 cur = pre + cur;
                 pre = tmp;

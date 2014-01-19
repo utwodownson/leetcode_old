@@ -7,14 +7,14 @@ class Solution {
     public:
         int trap(int A[], int n) {
             // Note: The Solution object is instantiated only once and is reused by each test case.
-            int index = 0, ans = 0, h = 0;
-            for (int i = 0; i < n; ++i) 
-                if (A[i] > A[index])
-                    index = i;
-            for (int i = 0; i < index; ++i) 
-                (i > 0 && h > A[i]) ? ans += h - A[i] : h = A[i];
-            for (int i = n - 1; i > index; --i) 
-                (i < n - 1 && A[i] < h) ? ans += h - A[i] : h = A[i];
+            int i = 0, h = 0, ans = 0;
+            for (int j = 0; j < n; ++j) 
+                if (A[i] < A[j])
+                    i = j;
+            for (int j = 0; j < i; ++j) 
+                (j != 0 && A[j] < h) ? ans += h - A[j] : h = A[j];
+            for (int j = n - 1; j > i; --j) 
+                (j != n - 1 && A[j] < h) ? ans += h - A[j] : h = A[j];
             return ans;
         }
 };
