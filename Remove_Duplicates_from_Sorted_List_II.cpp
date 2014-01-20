@@ -16,9 +16,11 @@ class Solution {
         ListNode *deleteDuplicates(ListNode *head) {
             // Note: The Solution object is instantiated only once and is reused by each test case.
             if (!head || !head->next) return head;
+
             ListNode *begin = new ListNode(0), *p = begin, *q = head;
             int tmp = q->val - 1;
-            for ( ; q->next; q = q->next) {
+
+            while (q->next) {
                 if (q->val != tmp) {
                     if (q->val != q->next->val) {
                         tmp = q->val;
@@ -27,12 +29,13 @@ class Solution {
                     } else 
                         tmp = q->val;
                 }
+                q = q->next;
             }
             if (q->val != tmp) { 
                 p->next = q;
                 p = p->next;
             }
-            p->next = 0;
+            p->next = NULL;
             return begin->next;
         }
 };

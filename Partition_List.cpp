@@ -16,9 +16,9 @@ class Solution {
     public:
         ListNode *partition(ListNode *head, int x) {
             // Note: The Solution object is instantiated only once and is reused by each test case.
-            ListNode *left = new ListNode(0), *right = new ListNode(0);
-            ListNode *p = left, *q = right;
-            for ( ; head; head = head->next) {
+            ListNode *left = new ListNode(0), *p = left;
+            ListNode *right = new ListNode(0), *q = right;
+            while (head) {
                 if (head->val < x) {
                     p->next = head;
                     p = head;
@@ -26,9 +26,10 @@ class Solution {
                     q->next = head;
                     q = head;
                 }
+                head = head->next;
             }
             p->next = right->next;
-            q->next = 0;
+            q->next = NULL;
             return left->next;
         }
 };

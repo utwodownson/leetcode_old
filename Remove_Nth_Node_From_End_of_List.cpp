@@ -18,15 +18,14 @@ class Solution {
     public:
         ListNode *removeNthFromEnd(ListNode *head, int n) {
             // Note: The Solution object is instantiated only once and is reused by each test case.
-            ListNode *begin = new ListNode(0), *cur = begin, *p;
+            ListNode *begin = new ListNode(0), *cur = begin, *p = NULL;
             begin->next = head;
             int len = 0;
-            for (p = begin; p->next; ++len, p = p->next);
-            for (int i = 0; i < len - n % (len + 1); ++i, cur = cur->next);
+            for (p = begin; p->next; p = p->next) ++len;
+            for (int i = 0; i < len - n % (len + 1); ++i) cur = cur->next;
             if (cur->next) {
                 ListNode *q = cur->next;
                 cur->next = cur->next->next;
-                delete q;
             }
             return begin->next;
         }

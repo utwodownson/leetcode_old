@@ -16,8 +16,9 @@ class Solution {
     public:
         ListNode *swapPairs(ListNode *head) {
             // Note: The Solution object is instantiated only once and is reused by each test case.
-            ListNode *begin = new ListNode(0), *r, *p, *q;
+            ListNode *begin = new ListNode(0), *r = NULL, *p = NULL, *q = NULL;
             begin->next = head;
+
             for (r = p = q = begin; p && q; r = p) {
                 if (r->next && r->next->next) {
                     p = r->next;
@@ -25,7 +26,8 @@ class Solution {
                     p->next = q->next;
                     q->next = p;
                     r->next = q;
-                } else break;
+                } else 
+                    break;
             }
             return begin->next;
         }

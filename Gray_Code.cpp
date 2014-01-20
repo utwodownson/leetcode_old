@@ -11,22 +11,33 @@
  * For now, the judge is able to judge based on one instance(实例) of gray code sequence. Sorry about that.
  */
 class Solution {
+        int get_next(int now, int n) {
+            int num_bit = 0;
+            int tmp = now;
+            while (tmp > 0) {
+                num_bit ^= 1;
+                tmp &= (tmp - 1);
+            }
+            if (num_bit & 1) {
+                for (int i = 0; i < n - 1; ++i)
+                    if (now & (1 << i))
+                        return now ^ (1 << i + 1);
+                return 0;
+            } else 
+                return now ^ 1;
+        }
     public:
         vector<int> grayCode(int n) {
             // Note: The Solution object is instantiated only once and is reused by each test case.
-            int len = 1 << n;
-            vector<int> ans;
-            vector<bool> visited(len, false);
-
-            for (int i = 0, k = 0; i < len; ++i) {
-                ans.push_back(k);
-                visited[k] = true;
-                int x = 1;
-                while (x < len && visited[k ^ x]) {
-                    x <<= 1;
-                }
-                k = k ^ x;
+            vector<int> vc;
+            int now = 0;
+            if (n == 0) {
+                vc.push_back(0);
+                return vc;
             }
-            return ans;
+            do {
+                vc.push_back(now);
+            } while ((now = get_next(now, n)) != 0);
+            return vc;
         }
 };

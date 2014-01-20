@@ -23,7 +23,7 @@ class Solution {
                     p = q;
                 }
             }
-            p->next = 0;
+            p->next = NULL;
             return head;
         }
 };

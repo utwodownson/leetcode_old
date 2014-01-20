@@ -11,6 +11,7 @@ class Solution {
             for (int i = 0; i < n; ++i)
                 for (int k = 0; k < 32; ++k)
                     bits[k] += (A[i] >> k) & 1;
+
             int ret = 0;
             for (int i = 0; i < 32; ++i)
                 ret |= (bits[i] % 3) << i;

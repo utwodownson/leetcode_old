@@ -14,10 +14,10 @@
 class Solution {
     public:
         ListNode *rotateRight(ListNode *head, int k) {
-            ListNode *tmp = head, *p = NULL; 
+            ListNode *tmp = head, *p = NULL;
             int len = 1;
-            for (p = head; p && p->next; p = p->next, ++len);
-            for (int i = 1; i < len - k % len; tmp = tmp->next, ++i);
+            for (p = head; p && p->next; p = p->next) ++len;
+            for (int i = 1; i < len - k % len; ++i) tmp = tmp->next;
             if (p) {
                 p->next = head;
                 head = tmp->next;
