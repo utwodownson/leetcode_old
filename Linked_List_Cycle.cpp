@@ -16,8 +16,12 @@ class Solution {
             // IMPORTANT: Please reset any member data you declared, as
             // the same Solution instance will be reused for each test case.
             if (!head || !head->next) return false;
-            for (ListNode *p = head->next, *q = head->next->next; q && q->next; p = p->next, q = q->next) 
+            ListNode *p = head->next, *q = p->next;
+            while (q && q->next) {
                 if (p == q) return true;
+                p = p->next;
+                q = q->next->next;
+            } 
             return false;
         }
 };
