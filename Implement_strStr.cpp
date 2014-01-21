@@ -8,9 +8,8 @@ class Solution {
             // IMPORTANT: Please reset any member data you declared, as
             // the same Solution instance will be reused for each test case.
             if (!haystack || !needle) return NULL;
-            int ln = strlen(haystack), rn = strlen(needle);
+            int ln = strlen(haystack), rn = strlen(needle), j = 0;
             for (int i = 0; i <= ln - rn; ++i) {
-                int j = 0;
                 for (j = 0; j < rn && haystack[i + j] == needle[j]; ++j);
                 if (j >= rn) return haystack + i;
             }

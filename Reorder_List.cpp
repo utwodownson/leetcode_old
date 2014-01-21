@@ -18,7 +18,7 @@ class Solution {
             // IMPORTANT: Please reset any member data you declared, as
             // the same Solution instance will be reused for each test case.
             if (!head) return;
-            ListNode *p = 0, *q = 0, tmp = 0;
+            ListNode *p = 0, *q = 0, *tmp = 0;
             for (p = head, q = head; q && q->next; p = p->next, q = q->next->next);
             q = p->next;
             p->next = 0;

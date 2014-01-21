@@ -10,7 +10,7 @@ class Solution {
                 if (*ptr == '?') continue;
                 else if (*ptr == '*') {
                     flag = true;
-                    for (s = str, p = ptr; *ptr == '*'; ++ptr, ++p);
+                    for (s = str, p = ptr; *ptr == '*'; ++ptr) ++p;
                     if (*ptr == '\0') return true;
                     --str; --ptr;
                 } else if (*str != *ptr) {
@@ -20,7 +20,7 @@ class Solution {
                     ptr = p - 1;
                 } 
             }
-            for ( ; *ptr == '*'; ++ptr);
+            while (*ptr == '*') ++ptr;
             return *ptr == '\0';
         }
 };

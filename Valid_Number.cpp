@@ -17,7 +17,7 @@ class Solution {
 
             if (*s == '+' || *s == '-') ++s;
 
-            for ( ; *s && *s != ' '; ++s) {
+            while (*s && *s != ' ') {
                 if ('0' <= *s && *s <= '9') {
                     num = true;
                 } else if (*s == '.') {
@@ -31,8 +31,9 @@ class Solution {
                     if (toupper(s[-1]) != 'E') return false;
                 } else 
                     return false;
+                ++s;
             }
-            while (*s == ' ') s++;
+            while (*s == ' ') ++s;
 
             return *s == 0 && num;
         }   
