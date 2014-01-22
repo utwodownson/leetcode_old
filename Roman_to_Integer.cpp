@@ -14,7 +14,7 @@ public:
 
         for (int i = 0; i < s.length(); ++i) {
             int v = value[name.find(s[i])];
-            val = v <= last ? val + last : val - last;
+            val = (v <= last) ? val + last : val - last;
             last = v;
         }
         return val + last;
