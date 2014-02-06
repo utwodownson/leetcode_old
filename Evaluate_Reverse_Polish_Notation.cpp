@@ -10,7 +10,6 @@ class Solution {
             stack<int> num;
             for (int i = 0; i < tokens.size(); ++i) {
                 char tmp = tokens[i][0];
-
                 if (tokens[i].length() != 1 || '0' <= tmp && tmp <= '9') 
                     num.push(atoi(tokens[i].c_str()));
                 else {

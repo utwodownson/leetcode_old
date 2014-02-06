@@ -13,21 +13,22 @@
  * };
  */
 class Solution {
-    bool isBalanced(TreeNode *root, int *h) {
-        int h1 = 0, h2 = 0;
-        if (root) {
-            if (!isBalanced(root->left, &h1)) return false;
-            if (!isBalanced(root->right, &h2)) return false;
-            if (abs(h1 - h2) > 1) return false;
+        bool isBalanced(TreeNode *root, int *h) {
+            int h1 = 0, h2 = 0;
 
-            *h = (h1 > h2 ? h1 : h2) + 1;
+            if (root) {
+                if (!isBalanced(root->left, &h1)) return false;
+                if (!isBalanced(root->right, &h2)) return false;
+                if (abs(h1 - h2) > 1) return false;
+
+                *h = (h1 > h2 ? h1 : h2) + 1;
+            }
+            return true;
         }
-        return true;
-    }
     public:
-    bool isBalanced(TreeNode *root) {
-        // Note: The Solution object is instantiated only once and is reused by each test case.
-        int h = 0;
-        return isBalanced(root, &h);
-    }
+        bool isBalanced(TreeNode *root) {
+            // Note: The Solution object is instantiated only once and is reused by each test case.
+            int h = 0;
+            return isBalanced(root, &h);
+        }
 };

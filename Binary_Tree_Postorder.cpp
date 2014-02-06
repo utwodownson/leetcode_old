@@ -10,17 +10,18 @@
 class Solution {
     public:
         vector<int> postorderTraversal(TreeNode *root) {
-            stack<TreeNode *> s;
+            stack<TreeNode *> st;
             vector<int> ans;
-            for (TreeNode *p = root, *tmp = 0; p || !s.empty(); ) {
+            TreeNode *p = root, *tmp = 0;
+            while (p || !st.empty()) {
                 if (p) {
-                    s.push(p);
+                    st.push(p);
                     p = p->left;
                 } else {
-                    TreeNode *t = s.top();
+                    TreeNode *t = st.top();
                     if (!t->right || t->right == tmp) {
                         ans.push_back(t->val);
-                        s.pop();
+                        st.pop();
                         tmp = t;
                     } else 
                         p = t->right;

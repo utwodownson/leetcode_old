@@ -25,16 +25,19 @@
 class Solution {
     public:
         vector<vector<int> > levelOrderBottom(TreeNode *root) {
-            queue<TreeNode *> q;
             vector<vector<int> > ans;
             vector<int> level;
-            if (root) { q.push(root); q.push(NULL); }
+            queue<TreeNode *> q;
+            if (root) { 
+                q.push(root); 
+                q.push(NULL); 
+            }
             while (!q.empty()) {
-                root = q.front(); q.pop();
-                if (root) {
-                    level.push_back(root->val);
-                    if (root->left) q.push(root->left);
-                    if (root->right) q.push(root->right);
+                TreeNode *p = q.front(); q.pop();
+                if (p) {
+                    level.push_back(p->val);
+                    if (p->left) q.push(p->left);
+                    if (p->right) q.push(p->right);
                 } else {
                     ans.push_back(level);
                     level.clear();

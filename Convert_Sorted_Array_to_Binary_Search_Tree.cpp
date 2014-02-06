@@ -10,19 +10,19 @@
  * };
  */
 class Solution {
-    TreeNode *sortedArrayToBST(const int* num, int size) {
-        TreeNode *root = 0;
-        if (size > 0) {
-            int mid = size >> 1;
-            root = new TreeNode(num[mid]);
-            root->left = sortedArrayToBST(num, mid);
-            root->right = sortedArrayToBST(num + mid + 1, size - mid - 1);
+        TreeNode *sortedArrayToBST(vector<int> &num, int start, int end) {
+            TreeNode *root = 0;
+            if (start < end) {
+                int mid = (start + end) / 2;
+                root = new TreeNode(num[mid]);
+                root->left = sortedArrayToBST(num, start, mid);
+                root->right = sortedArrayToBST(num, mid + 1, end);
+            }
+            return root;
         }
-        return root;
-    }
     public:
         TreeNode *sortedArrayToBST(vector<int> &num) {
             // Note: The Solution object is instantiated only once and is reused by each test case.
-            return sortedArrayToBST(num.data(), num.size());
+            return sortedArrayToBST(num, 0, num.size());
         }
 };

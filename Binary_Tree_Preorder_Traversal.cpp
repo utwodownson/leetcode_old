@@ -23,16 +23,16 @@ class Solution {
         vector<int> preorderTraversal(TreeNode *root) {
             // IMPORTANT: Please reset any member data you declared, as
             // the same Solution instance will be reused for each test case.
-            stack<TreeNode *> s;
+            stack<TreeNode *> st;
             vector<int> ans;
-            for (TreeNode *p = root; p || !s.empty(); ) {
-                if (p) {
-                    s.push(p->right);
-                    ans.push_back(p->val);
-                    p = p->left;
+            while (root || !st.empty()) {
+                if (root) {
+                    ans.push_back(root->val);
+                    st.push(root->right);
+                    root = root->left;
                 } else {
-                    p = s.top(); 
-                    s.pop();
+                    root = st.top();
+                    st.pop();
                 }
             }
             return ans;

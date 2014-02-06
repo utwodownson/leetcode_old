@@ -13,24 +13,25 @@
 class Solution {
     public:
         void recoverTree(TreeNode *root) {
-            stack<TreeNode *> s;
-            TreeNode *first = 0, *second = 0;
-            for (TreeNode *pre = 0; root || !s.empty(); ) {
-                if (root) {
-                    s.push(root);
-                    root = root->left;
+            stack<TreeNode *> st;
+            TreeNode *p = root;
+            TreeNode *last = 0, *first = 0, *second = 0;
+            while (p || !st.empty()) {
+                if (p) {
+                    st.push(p);
+                    p = p->left;
                 } else {
-                    root = s.top(); s.pop();
-                    if (pre && root->val < pre->val) {
+                    p = st.top(); st.pop();
+                    if (last && last->val > p->val) {
                         if (first) {
-                            swap(first->val, root->val); 
+                            swap(first->val, p->val);
                             return;
                         }
-                        first = pre;
-                        second = root;
+                        first = last;
+                        second = p;
                     }
-                    pre = root;
-                    root = root->right;
+                    last = p;
+                    p = p->right;
                 }
             }
             if (first && second) swap(first->val, second->val);

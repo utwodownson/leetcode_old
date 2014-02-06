@@ -29,15 +29,17 @@ class Solution {
         void connect(TreeLinkNode *root) {
             if (!root) return;
             TreeLinkNode *tmp = new TreeLinkNode(-1);
-            for (TreeLinkNode *cur = root, *pre = tmp; cur; cur = cur->next) {
+            TreeLinkNode *cur = root, *pre = tmp;
+            while (cur) {
                 if (cur->left) {
                     pre->next = cur->left;
                     pre = pre->next;
-                } 
+                }
                 if (cur->right) {
                     pre->next = cur->right;
                     pre = pre->next;
                 }
+                cur = cur->next;
             }
             connect(tmp->next);
         }

@@ -14,13 +14,16 @@
  * };
  */
 class Solution {
-        bool traverseBST(TreeNode *root, int *minval, int *maxval) {
-            return !root || ((!minval || root->val > *minval) && (!maxval || root->val < *maxval)
-                    && traverseBST(root->left, minval, &root->val) && traverseBST(root->right, &root->val, maxval));
+        bool isValidBST(TreeNode *root, int *minval, int *maxval) {
+            if (!root) return true;
+            return (!minval || root->val > *minval) && 
+                   (!maxval || root->val < *maxval) && 
+                   isValidBST(root->left, minval, &root->val) && 
+                   isValidBST(root->right, &root->val, maxval);
         }
     public:
         bool isValidBST(TreeNode *root) {
             // Note: The Solution object is instantiated only once and is reused by each test case.
             return traverseBST(root, 0, 0);
-    }
+        }
 };
