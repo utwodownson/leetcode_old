@@ -21,13 +21,13 @@ class Solution {
     public:
         int reverse(int x) {
             // Note: The Solution object is instantiated only once and is reused by each test case.
-            int sign = x > 0 ? 1 : -1;
-            int res = 0;
-            x = abs(x);
-            while (x) {
-                res = res * 10 + x % 10;
-                x /= 10;
+            int sign = x < 0 ? -1 : 1;
+            int ans = 0;
+            int num = abs(x);
+            while (num) {
+                ans = ans * 10 + num % 10;
+                num /= 10;
             }
-            return sign * res;
+            return sign * ans;
         }
 };

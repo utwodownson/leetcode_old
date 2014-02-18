@@ -30,18 +30,16 @@ class Solution {
 
             sort(list.begin(), list.end(), cmp);
 
-            vector<int> ret;
+            vector<int> ans(2);
             int i = 0, j = numbers.size() - 1;
             while (i < j) {
                 int sum = list[i].val + list[j].val;
                 if (sum < target) ++i;
                 else if (target < sum) --j;
                 else {
-                    int mini = min(list[i].index, list[j].index);
-                    int maxj = max(list[i].index, list[j].index);
-                    ret.push_back(mini);
-                    ret.push_back(maxj);
-                    return ret;
+                    ans[0] = min(list[i].index, list[j].index);
+                    ans[1] = max(list[i].index, list[j].index);
+                    return ans;
                 }
             }
         }
