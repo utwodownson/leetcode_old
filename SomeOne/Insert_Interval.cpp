@@ -16,25 +16,29 @@
  * };
  */
 class Solution {
+        Interval merge(Interval a, Interval b) {
+            int st = min(a.start, b.start);
+            int en = max(a.end, b.end);
+            return Interval(st, en);
+        }
     public:
         vector<Interval> insert(vector<Interval> &intervals, Interval newInterval) {
             // IMPORTANT: Please reset any member data you declared, as
             // the same Solution instance will be reused for each test case.
-            vector<Interval>::iterator it = intervals.begin();
-            while (it != intervals.end()) {
-                if (newInterval.end < it->start) {
-                    intervals.insert(it, newInterval);
-                    return intervals;
-                } else if (newInterval.start > it->end) {
-                    it++;
-                    continue;
-                } else {
-                    newInterval.start = min(newInterval.start, it->start);
-                    newInterval.end = max(newInterval.end, it->end);
-                    it = intervals.erase(it); // 
-                }
+            vector<Interval> ans;
+            ans.push_back(newInterval);
+            for (int i = 0; i < intervals.size(); ++i) {
+                Interval tmp = ans.back();
+                ans.pop_back();
+                if (intervals[i].end < tmp.start) {
+                    ans.push_back(intervals[i]);
+                    ans.push_back(tmp);
+                } else if (intervals[i].start > tmp.end) {
+                    ans.push_back(tmp);
+                    ans.push_back(intervals[i]);
+                } else 
+                    ans.push_back(merge(tmp, intervals[i]));
             }
-            intervals.insert(intervals.end(), newInterval);
-            return intervals;
+            return ans;
         }
 };
